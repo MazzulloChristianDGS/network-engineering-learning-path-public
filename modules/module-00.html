@@ -45,9 +45,10 @@
         <p class="hero-copy">
           Prima di avvicinarsi a qualsiasi protocollo di rete è necessario disporre
           di un ambiente di laboratorio funzionante, stabile e replicabile.
-          Questo modulo guida l’installazione completa di GNS3, la configurazione
-          delle immagini Cisco IOS/IOSvL2 e la verifica che l’ambiente sia pronto
-          a supportare tutti i moduli successivi.
+          Questo modulo guida l’installazione completa di
+          <a href="https://www.gns3.com/" target="_blank" rel="noopener">GNS3</a>,
+          la configurazione delle immagini Cisco IOS/IOSvL2 e la verifica che
+          l’ambiente sia pronto a supportare tutti i moduli successivi.
         </p>
         <div class="module-meta">
           <span class="status ready">Pubblicato</span>
@@ -75,11 +76,11 @@
             <h2>Obiettivo del modulo</h2>
             <p>Al termine di questo modulo il partecipante sarà in grado di svolgere autonomamente le seguenti attività:</p>
             <ol>
-              <li>Installare GNS3 su un sistema Windows, macOS o Linux, verificarne il corretto avvio e configurare GNS3 VM come hypervisor di backend.</li>
+              <li>Installare <a href="https://www.gns3.com/software/download" target="_blank" rel="noopener">GNS3</a> su un sistema Windows, macOS o Linux, verificarne il corretto avvio e configurare GNS3 VM come hypervisor di backend.</li>
               <li>Importare le immagini Cisco IOSv (router) e IOSvL2 (switch) in GNS3, verificarne la firma e associarle ai template corretti.</li>
               <li>Creare un progetto GNS3 vuoto seguendo le convenzioni di naming del percorso, posizionare i device sulla canvas e avviarli senza errori.</li>
               <li>Verificare la connettività tra due device usando un cloud o uno switch di management, e salvare una prima topologia come snapshot di riferimento.</li>
-              <li>Configurare Wireshark come sniffer integrato in GNS3 e catturare il traffico su un link attivo, salvando la capture nella cartella prevista dal repo privato.</li>
+              <li>Configurare <a href="https://www.wireshark.org/" target="_blank" rel="noopener">Wireshark</a> come sniffer integrato in GNS3 e catturare il traffico su un link attivo, salvando la capture nella cartella prevista dal repo privato.</li>
             </ol>
           </section>
 
@@ -96,19 +97,81 @@
           <!-- Teoria -->
           <section id="teoria">
             <h2>Teoria</h2>
+
             <h3>Cos’è GNS3 e come funziona</h3>
-            <p>GNS3 (Graphical Network Simulator 3) è un emulatore di rete open source che permette di eseguire immagini reali di sistemi operativi di rete — Cisco IOS, IOSv, IOSvL2, FRR, VyOS e molti altri — all’interno di macchine virtuali o processi containerizzati sul tuo sistema host. A differenza di un simulatore (che riproduce il comportamento teorico di un protocollo), GNS3 esegue il binario originale del sistema operativo: i pacchetti che circolano nel laboratorio sono pacchetti reali, le tabelle di routing sono tabelle reali, e gli errori di configurazione producono gli stessi effetti che produrrebbero su hardware fisico.</p>
-            <p>GNS3 è composto da due componenti principali: il <strong>GNS3 GUI</strong>, che gira sull’host e fornisce l’interfaccia grafica per disegnare le topologie, e il <strong>GNS3 Server</strong>, che può essere locale oppure remoto (GNS3 VM). Per questo percorso è obbligatorio usare GNS3 VM come backend perché le immagini Cisco IOSv richiedono KVM/QEMU.</p>
+            <p>
+              <a href="https://www.gns3.com/" target="_blank" rel="noopener">GNS3</a>
+              (Graphical Network Simulator 3) è un emulatore di rete open source
+              che permette di eseguire immagini reali di sistemi operativi di rete —
+              Cisco IOS, IOSv, IOSvL2,
+              <a href="https://frrouting.org/" target="_blank" rel="noopener">FRR</a>,
+              <a href="https://vyos.io/" target="_blank" rel="noopener">VyOS</a>
+              e molti altri — all’interno di macchine virtuali o processi
+              containerizzati sul tuo sistema host. A differenza di un simulatore
+              (che riproduce il comportamento teorico di un protocollo), GNS3 esegue
+              il binario originale del sistema operativo: i pacchetti che circolano
+              nel laboratorio sono pacchetti reali, le tabelle di routing sono tabelle
+              reali, e gli errori di configurazione producono gli stessi effetti che
+              produrrebbero su hardware fisico.
+            </p>
+            <p>
+              GNS3 è composto da due componenti principali: il <strong>GNS3 GUI</strong>,
+              che gira sull’host e fornisce l’interfaccia grafica per disegnare le topologie,
+              e il <strong>GNS3 Server</strong>, che può essere locale oppure remoto
+              (GNS3 VM). Per questo percorso è obbligatorio usare GNS3 VM come backend
+              perché le immagini Cisco IOSv richiedono KVM/QEMU.
+            </p>
+
             <h3>Immagini Cisco IOSv e IOSvL2</h3>
-            <p>Cisco IOSv è l’immagine di un router Cisco virtualizzato, distribuita da Cisco per ambienti di lab. Non è una simulazione: è il sistema operativo IOS reale compilato per architettura x86. IOSvL2 è la variante per switch Layer 2, con supporto a VLAN, STP, 802.1Q trunk e tutte le feature di switching. Entrambe le immagini sono file <code>.qcow2</code> che GNS3 importa come template e monta come disco della macchina virtuale ad ogni avvio del device.</p>
+            <p>
+              Cisco IOSv è l’immagine di un router Cisco virtualizzato, distribuita da
+              Cisco per ambienti di lab. Non è una simulazione: è il sistema operativo
+              IOS reale compilato per architettura x86. IOSvL2 è la variante per switch
+              Layer 2, con supporto a VLAN, STP, 802.1Q trunk e tutte le feature di
+              switching. Entrambe le immagini sono file <code>.qcow2</code> che GNS3
+              importa come template e monta come disco della macchina virtuale ad
+              ogni avvio del device.
+            </p>
             <div class="callout card">
-              <strong>&#9432; Nota legale</strong>
-              <p>Le immagini Cisco IOSv richiedono un account Cisco con accesso a VIRL/CML o Cisco DevNet. Non sono redistribuibili liberamente.</p>
+              <strong>&#9432; Nota legale e accesso alle immagini</strong>
+              <p>
+                Le immagini Cisco IOSv sono distribuite sotto licenza e richiedono
+                un account Cisco con accesso a
+                <a href="https://developer.cisco.com/" target="_blank" rel="noopener">Cisco DevNet</a>
+                oppure a
+                <a href="https://www.cisco.com/c/en/us/products/cloud-systems-management/modeling-labs/index.html" target="_blank" rel="noopener">Cisco Modeling Labs (CML)</a>.
+                Non sono redistribuibili liberamente. Se non hai accesso alle immagini
+                Cisco, GNS3 supporta anche
+                <a href="https://frrouting.org/" target="_blank" rel="noopener">FRRouting (FRR)</a>
+                come alternativa open source per la parte di routing dei moduli 3 e 4.
+              </p>
             </div>
+
             <h3>Architettura GNS3 VM</h3>
-            <p>GNS3 VM è una macchina virtuale basata su Ubuntu Server, distribuita in formato OVA per VMware e VirtualBox. Gira in background sull’host e funge da server QEMU/KVM per i device del laboratorio. Il GUI GNS3 si collega a GNS3 VM via API REST su localhost, trasparentemente per l’utente.</p>
+            <p>
+              GNS3 VM è una macchina virtuale basata su Ubuntu Server, distribuita in
+              formato OVA per
+              <a href="https://www.vmware.com/products/workstation-pro.html" target="_blank" rel="noopener">VMware Workstation</a>
+              /
+              <a href="https://www.vmware.com/products/fusion.html" target="_blank" rel="noopener">Fusion</a>
+              e
+              <a href="https://www.virtualbox.org/" target="_blank" rel="noopener">VirtualBox</a>.
+              Gira in background sull’host e funge da server QEMU/KVM per i device del
+              laboratorio. Il GUI GNS3 si collega a GNS3 VM via API REST su localhost,
+              trasparentemente per l’utente.
+            </p>
+
             <h3>Wireshark integrato</h3>
-            <p>GNS3 supporta la cattura del traffico su qualsiasi link della topologia facendo click destro sul link e selezionando <em>Start capture</em>. Internamente GNS3 usa <code>tcpdump</code> all’interno di GNS3 VM e passa i pacchetti in tempo reale a Wireshark sull’host tramite un pipe named. Questo meccanismo è fondamentale per tutto il percorso.</p>
+            <p>
+              <a href="https://www.wireshark.org/" target="_blank" rel="noopener">Wireshark</a>
+              è il principale analizzatore di protocollo open source e lo strumento
+              di riferimento per tutto il percorso. GNS3 supporta la cattura del
+              traffico su qualsiasi link della topologia facendo click destro sul
+              link e selezionando <em>Start capture</em>. Internamente GNS3 usa
+              <code>tcpdump</code> all’interno di GNS3 VM e passa i pacchetti in
+              tempo reale a Wireshark sull’host tramite un pipe named. Questo
+              meccanismo è fondamentale per tutto il percorso.
+            </p>
           </section>
 
           <!-- Step pratici -->
@@ -118,9 +181,21 @@
             <h3>Step 1 — Installazione GNS3 GUI e GNS3 VM</h3>
             <p><strong>Obiettivo:</strong> avere GNS3 GUI avviato e connesso a GNS3 VM senza errori.</p>
             <ol>
-              <li>Scarica GNS3 all-in-one installer da <code>gns3.com/software/download</code>. Installa selezionando tutte le componenti (Wireshark incluso).</li>
-              <li>Scarica GNS3 VM OVA dalla stessa pagina, versione corrispondente al GUI.</li>
-              <li>Importa l’OVA in VMware/VirtualBox. Assegna almeno 4 vCPU e 8 GB di RAM. Abilita nested virtualization.</li>
+              <li>
+                Scarica il pacchetto
+                <a href="https://www.gns3.com/software/download" target="_blank" rel="noopener">GNS3 all-in-one installer</a>
+                (Windows/macOS/Linux) e
+                <a href="https://www.gns3.com/software/download-vm" target="_blank" rel="noopener">GNS3 VM OVA</a>
+                dalla stessa versione del GUI.
+              </li>
+              <li>
+                Importa l’OVA in
+                <a href="https://www.vmware.com/products/workstation-pro.html" target="_blank" rel="noopener">VMware Workstation</a>,
+                <a href="https://www.vmware.com/products/fusion.html" target="_blank" rel="noopener">VMware Fusion</a>
+                o
+                <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">VirtualBox</a>.
+                Assegna almeno 4 vCPU e 8 GB di RAM. Abilita nested virtualization (VT-x/AMD-V).
+              </li>
               <li>Avvia GNS3 VM. Annota l’indirizzo IP mostrato a schermo.</li>
               <li>Avvia GNS3 GUI. Setup Wizard: scegli <em>Run appliances on a remote server (GNS3 VM)</em>. Inserisci l’IP di GNS3 VM e porta <code>3080</code>.</li>
               <li>Verifica: indicatore verde con scritta “GNS3 VM” in basso a destra nella GUI.</li>
@@ -136,7 +211,14 @@
             </div>
 
             <h3>Step 2 — Import immagini Cisco IOSv e IOSvL2</h3>
-            <p><strong>Obiettivo:</strong> avere i template IOSv e IOSvL2 disponibili nella palette dispositivi di GNS3.</p>
+            <p>
+              <strong>Obiettivo:</strong> avere i template IOSv e IOSvL2 disponibili
+              nella palette dispositivi di GNS3. Recupera i file <code>.qcow2</code>
+              tramite
+              <a href="https://developer.cisco.com/" target="_blank" rel="noopener">Cisco DevNet</a>
+              o
+              <a href="https://www.cisco.com/c/en/us/products/cloud-systems-management/modeling-labs/index.html" target="_blank" rel="noopener">Cisco CML</a>.
+            </p>
             <ol>
               <li>In GNS3 GUI: Edit &rarr; Preferences &rarr; QEMU &rarr; Qemu VMs &rarr; New.</li>
               <li>Nome template: <code>Cisco-IOSv</code>. RAM: 512 MB. vCPU: 1. Disco HDA: seleziona il file <code>.qcow2</code> di IOSv.</li>
@@ -162,7 +244,9 @@
             </div>
 
             <h3>Step 4 — Configurazione IP e prima capture Wireshark</h3>
-            <p><strong>Obiettivo:</strong> connettività IP tra R1 e R2 verificata con ping e capture ICMP salvata.</p>
+            <p><strong>Obiettivo:</strong> connettività IP tra R1 e R2 verificata con ping e capture ICMP salvata tramite
+              <a href="https://www.wireshark.org/" target="_blank" rel="noopener">Wireshark</a>.
+            </p>
             <ol>
               <li>Configura R1:</li>
             </ol>
@@ -184,9 +268,12 @@ R2(config-if)# no shutdown
 R2(config-if)# end
 R2# write memory</pre>
             <ol start="3">
-              <li>Click destro sul link R1-R2 &rarr; <em>Start capture</em>. Wireshark si apre automaticamente.</li>
+              <li>Click destro sul link R1-R2 &rarr; <em>Start capture</em>.
+                <a href="https://www.wireshark.org/" target="_blank" rel="noopener">Wireshark</a>
+                si apre automaticamente.</li>
               <li>Da console R1: <code>ping 10.0.0.2 repeat 5</code></li>
-              <li>In Wireshark: verifica 5 Echo Request e 5 Echo Reply.</li>
+              <li>In Wireshark: verifica 5 Echo Request e 5 Echo Reply.
+                Usa il filtro display <code>icmp</code> se necessario.</li>
               <li>Salva la capture con naming canonico:<br>
                 <code>module-00__person-N__R1-R2__pcap__ICMP-Gi0-0__v01.pcap</code><br>
                 nella cartella <code>evidence/participants/person-N/module-00/captures/</code>.</li>
@@ -197,16 +284,24 @@ R2# write memory</pre>
           <!-- Wireshark -->
           <section id="wireshark">
             <h2>Analisi Wireshark</h2>
-            <p><strong>Punto di cattura:</strong> link tra R1 (Gi0/0) e R2 (Gi0/0).</p>
+            <p>
+              <strong>Punto di cattura:</strong> link tra R1 (Gi0/0) e R2 (Gi0/0).
+              Riferimento:
+              <a href="https://www.wireshark.org/docs/wsug_html_chunked/" target="_blank" rel="noopener">Wireshark User Guide</a>.
+            </p>
             <p><strong>Filtro display:</strong></p>
             <pre>icmp</pre>
-            <p><strong>Pacchetti attesi:</strong> 5 ICMP Echo Request da 10.0.0.1 → 10.0.0.2 e 5 ICMP Echo Reply da 10.0.0.2 → 10.0.0.1.</p>
+            <p><strong>Pacchetti attesi:</strong> 5 ICMP Echo Request da 10.0.0.1 &rarr; 10.0.0.2 e 5 ICMP Echo Reply da 10.0.0.2 &rarr; 10.0.0.1.</p>
             <h3>Campi da osservare</h3>
             <ul>
               <li><strong>Frame header:</strong> lunghezza del frame, interfaccia di cattura, timestamp.</li>
               <li><strong>Ethernet header:</strong> MAC sorgente e destinazione.</li>
-              <li><strong>IP header:</strong> Source/Destination IP, TTL (valore iniziale 255 per IOS), Protocol (1 = ICMP).</li>
-              <li><strong>ICMP header:</strong> Type (8 = Echo Request, 0 = Echo Reply), Code (0), Identifier, Sequence Number.</li>
+              <li><strong>IP header:</strong> Source/Destination IP, TTL (valore iniziale 255 per IOS), Protocol (1 = ICMP). Riferimento:
+                <a href="https://www.rfc-editor.org/rfc/rfc791" target="_blank" rel="noopener">RFC 791 — Internet Protocol</a>.
+              </li>
+              <li><strong>ICMP header:</strong> Type (8 = Echo Request, 0 = Echo Reply), Code (0), Identifier, Sequence Number. Riferimento:
+                <a href="https://www.rfc-editor.org/rfc/rfc792" target="_blank" rel="noopener">RFC 792 — ICMP</a>.
+              </li>
             </ul>
             <h3>Domande di analisi</h3>
             <ol>
@@ -301,11 +396,11 @@ R2# write memory</pre>
             <h2>Criterio di chiusura del modulo</h2>
             <p>Il Modulo 00 può essere dichiarato <strong>chiuso</strong> solo quando tutte le seguenti condizioni sono soddisfatte contemporaneamente:</p>
             <ul>
-              <li>GNS3 GUI avviata senza errori e connessa a GNS3 VM (indicatore verde).</li>
+              <li><a href="https://www.gns3.com/" target="_blank" rel="noopener">GNS3</a> GUI avviata senza errori e connessa a GNS3 VM (indicatore verde).</li>
               <li>Template Cisco-IOSv e Cisco-IOSvL2 visibili nella palette di GNS3.</li>
               <li>Progetto <code>network-learning-path</code> salvato con R1 e R2 configurati.</li>
-              <li>Ping R1 → R2 con success rate 100% documentato nell’output CLI.</li>
-              <li>Capture Wireshark funzionante con almeno 10 pacchetti ICMP visibili.</li>
+              <li>Ping R1 &rarr; R2 con success rate 100% documentato nell’output CLI.</li>
+              <li>Capture <a href="https://www.wireshark.org/" target="_blank" rel="noopener">Wireshark</a> funzionante con almeno 10 pacchetti ICMP visibili.</li>
               <li>Tutte le evidenze presenti nel repo privato con naming canonico corretto.</li>
               <li>Checklist <code>docs/verification/module-00-checklist.md</code> completata e committata.</li>
             </ul>
@@ -333,6 +428,86 @@ R2# write memory</pre>
             </div>
           </section>
 
+          <!-- Risorse esterne -->
+          <section id="risorse">
+            <h2>Risorse esterne di riferimento</h2>
+            <p>Tutti i link utili per questo modulo raccolti in un unico punto.</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Risorsa</th><th>URL</th><th>Scopo</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>GNS3 Download</td>
+                    <td><a href="https://www.gns3.com/software/download" target="_blank" rel="noopener">gns3.com/software/download</a></td>
+                    <td>Installer GUI e OVA GNS3 VM</td>
+                  </tr>
+                  <tr>
+                    <td>GNS3 VM Download</td>
+                    <td><a href="https://www.gns3.com/software/download-vm" target="_blank" rel="noopener">gns3.com/software/download-vm</a></td>
+                    <td>OVA specifica per VMware/VirtualBox</td>
+                  </tr>
+                  <tr>
+                    <td>GNS3 Documentation</td>
+                    <td><a href="https://docs.gns3.com/" target="_blank" rel="noopener">docs.gns3.com</a></td>
+                    <td>Guida ufficiale installazione e configurazione</td>
+                  </tr>
+                  <tr>
+                    <td>Cisco DevNet</td>
+                    <td><a href="https://developer.cisco.com/" target="_blank" rel="noopener">developer.cisco.com</a></td>
+                    <td>Accesso immagini IOSv e IOSvL2 (account richiesto)</td>
+                  </tr>
+                  <tr>
+                    <td>Cisco CML</td>
+                    <td><a href="https://www.cisco.com/c/en/us/products/cloud-systems-management/modeling-labs/index.html" target="_blank" rel="noopener">Cisco Modeling Labs</a></td>
+                    <td>Alternativa a DevNet per le immagini Cisco</td>
+                  </tr>
+                  <tr>
+                    <td>Wireshark</td>
+                    <td><a href="https://www.wireshark.org/" target="_blank" rel="noopener">wireshark.org</a></td>
+                    <td>Download e documentazione analizzatore di protocollo</td>
+                  </tr>
+                  <tr>
+                    <td>Wireshark User Guide</td>
+                    <td><a href="https://www.wireshark.org/docs/wsug_html_chunked/" target="_blank" rel="noopener">wireshark.org/docs</a></td>
+                    <td>Guida completa uso e filtri display</td>
+                  </tr>
+                  <tr>
+                    <td>VMware Workstation</td>
+                    <td><a href="https://www.vmware.com/products/workstation-pro.html" target="_blank" rel="noopener">vmware.com/products/workstation-pro</a></td>
+                    <td>Hypervisor host per GNS3 VM (Windows/Linux)</td>
+                  </tr>
+                  <tr>
+                    <td>VMware Fusion</td>
+                    <td><a href="https://www.vmware.com/products/fusion.html" target="_blank" rel="noopener">vmware.com/products/fusion</a></td>
+                    <td>Hypervisor host per GNS3 VM (macOS)</td>
+                  </tr>
+                  <tr>
+                    <td>VirtualBox</td>
+                    <td><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">virtualbox.org/wiki/Downloads</a></td>
+                    <td>Alternativa open source a VMware</td>
+                  </tr>
+                  <tr>
+                    <td>FRRouting (FRR)</td>
+                    <td><a href="https://frrouting.org/" target="_blank" rel="noopener">frrouting.org</a></td>
+                    <td>Alternativa open source alle immagini Cisco (moduli 3-4)</td>
+                  </tr>
+                  <tr>
+                    <td>RFC 791 — IP</td>
+                    <td><a href="https://www.rfc-editor.org/rfc/rfc791" target="_blank" rel="noopener">rfc-editor.org/rfc/rfc791</a></td>
+                    <td>Specifica del protocollo IP (TTL, header)</td>
+                  </tr>
+                  <tr>
+                    <td>RFC 792 — ICMP</td>
+                    <td><a href="https://www.rfc-editor.org/rfc/rfc792" target="_blank" rel="noopener">rfc-editor.org/rfc/rfc792</a></td>
+                    <td>Specifica del protocollo ICMP (ping, Echo Request/Reply)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
         </article>
 
         <!-- Sidebar TOC -->
@@ -348,6 +523,7 @@ R2# write memory</pre>
             <a href="#evidenze">Evidenze</a>
             <a href="#chiusura">Chiusura</a>
             <a href="#topologia-finale">Topologia finale</a>
+            <a href="#risorse">Risorse esterne</a>
           </nav>
           <div class="card" style="margin-top: 1rem; padding: 1rem;">
             <p class="panel-label">Stato modulo</p>
