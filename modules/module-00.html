@@ -1,1 +1,200 @@
-in preparazione
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modulo 00 — Setup ambiente GNS3</title>
+  <meta name="description" content="Istruzioni complete del Modulo 00 del percorso di networking: setup ambiente GNS3, GNS3 VM, immagini Cisco e raccolta evidenze.">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=zodiak@400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script defer src="../assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="../index.html" aria-label="Vai alla home del percorso">
+        <svg viewBox="0 0 120 120" aria-hidden="true" class="brand-mark">
+          <circle cx="60" cy="60" r="46" class="brand-ring"></circle>
+          <path d="M34 73 L34 47 L60 33 L86 47 L86 73 L60 87 Z" class="brand-hex"></path>
+          <path d="M60 33 V87 M34 47 L86 73 M86 47 L34 73" class="brand-grid"></path>
+        </svg>
+        <span>
+          <strong>Network Engineering</strong>
+          <small>Learning Path</small>
+        </span>
+      </a>
+      <nav class="top-nav" aria-label="Navigazione principale">
+        <a href="../index.html">Home</a>
+        <a href="./module-00.html">Modulo 00</a>
+        <a href="../operative-notes/repo-guide.html">Note operative</a>
+      </nav>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Attiva tema scuro">
+        <span aria-hidden="true">◐</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="section">
+    <div class="container page-intro">
+      <p class="eyebrow">Modulo pubblicato</p>
+      <h1>Modulo 00 — Setup ambiente GNS3</h1>
+      <p class="hero-copy">Questo modulo prepara il laboratorio da zero su Windows 11 Enterprise con VMware Workstation Pro 26H1, separando il setup dell'ambiente dall'approvvigionamento legittimo delle immagini Cisco IOSv e IOSvL2.</p>
+    </div>
+
+    <div class="container reading-layout">
+      <article class="content-stack">
+        <section class="card prose-card">
+          <h2>Obiettivo del modulo</h2>
+          <p>Il partecipante deve arrivare a un ambiente GNS3 funzionante, sostenibile e verificabile. Al termine del modulo deve saper distinguere con chiarezza tra installazione della GUI, importazione della GNS3 VM, configurazione del backend di esecuzione, gestione delle immagini Cisco e raccolta ordinata delle evidenze tecniche.</p>
+          <ul role="list" class="bullet-list">
+            <li>Installare GNS3 GUI su Windows 11 Enterprise.</li>
+            <li>Importare e integrare GNS3 VM in VMware Workstation Pro 26H1.</li>
+            <li>Configurare GNS3 VM come backend di esecuzione.</li>
+            <li>Creare un primo progetto vuoto persistente.</li>
+            <li>Ottenere IOSv e IOSvL2 tramite canali ufficiali e configurare i template.</li>
+            <li>Raccogliere evidenze nel naming congelato del progetto.</li>
+          </ul>
+        </section>
+
+        <section class="card prose-card">
+          <h2>Stato del laboratorio all'ingresso</h2>
+          <p>All'inizio del modulo tutti i partecipanti partono da Windows 11 Enterprise con VMware Workstation Pro 26H1 già disponibile e almeno 16 GB di RAM. Non sono ancora presenti GNS3 GUI, GNS3 VM, immagini Cisco, template appliance o progetti GNS3 preesistenti.</p>
+          <p>Lo scopo del modulo non è introdurre networking attivo, ma costruire l'infrastruttura di laboratorio che diventerà la base stabile dei moduli successivi. Per questa ragione il modulo si chiude con un progetto vuoto, una GNS3 VM operativa e template IOSv/IOSvL2 pronti.</p>
+        </section>
+
+        <section class="card prose-card">
+          <h2>Struttura del modulo</h2>
+          <div class="two-column-text">
+            <div>
+              <h3>Livello A — Setup ambiente</h3>
+              <p>Copre la parte eseguibile subito: verifica host, installazione GNS3 GUI, download e importazione GNS3 VM, configurazione del backend in VMware, primo avvio di GNS3 e creazione del primo progetto vuoto persistente.</p>
+            </div>
+            <div>
+              <h3>Livello B — Immagini Cisco</h3>
+              <p>Copre la parte soggetta a disponibilità delle immagini: account Cisco DevNet, canali ufficiali, accesso a CML Personal o risorse equivalenti, download legittimo delle immagini, importazione dei template e verifica di boot.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card prose-card">
+          <h2>Step pratici</h2>
+          <div class="step-list">
+            <article>
+              <h3>Step 1 — Preparazione del sistema host</h3>
+              <p><strong>Obiettivo:</strong> verificare che l'host sia idoneo al setup e che VMware sia funzionante. <strong>Prerequisiti:</strong> Windows 11 Enterprise, privilegi amministrativi e VMware Workstation Pro 26H1 installato.</p>
+              <p><strong>Procedura:</strong> aprire VMware, verificare che l'interfaccia sia accessibile, controllare che non compaiano errori di virtualizzazione e annotare la RAM disponibile. <strong>Verifica:</strong> VMware si apre senza errori. <strong>Se fallisce:</strong> controllare VT-x/AMD-V, policy UEFI/BIOS e integrità dell'installazione.</p>
+            </article>
+            <article>
+              <h3>Step 2 — Creazione account Cisco DevNet</h3>
+              <p><strong>Obiettivo:</strong> predisporre l'accesso ufficiale alle risorse Cisco. <strong>Procedura:</strong> creare l'account gratuito, completare la registrazione, confermare l'e-mail e verificare che il profilo sia operativo.</p>
+            </article>
+            <article>
+              <h3>Step 3 — Download di GNS3 GUI</h3>
+              <p><strong>Obiettivo:</strong> ottenere il pacchetto ufficiale per Windows. <strong>Procedura:</strong> scaricare il pacchetto all-in-one dal sito ufficiale GNS3 e salvarlo in una cartella nota. <strong>Verifica:</strong> il file è presente e coerente con la distribuzione ufficiale.</p>
+            </article>
+            <article>
+              <h3>Step 4 — Installazione di GNS3 GUI</h3>
+              <p><strong>Obiettivo:</strong> installare la GUI mantenendo i componenti consigliati. <strong>Procedura:</strong> eseguire il setup, mantenere il percorso predefinito salvo vincoli aziendali e completare l'installazione con privilegi elevati.</p>
+            </article>
+            <article>
+              <h3>Step 5 — Download della GNS3 VM</h3>
+              <p><strong>Obiettivo:</strong> ottenere la VM ufficiale compatibile con VMware Workstation. <strong>Procedura:</strong> scaricare il pacchetto VM, estrarlo e identificare il file OVA/OVF corretto.</p>
+            </article>
+            <article>
+              <h3>Step 6 — Importazione della GNS3 VM</h3>
+              <p><strong>Obiettivo:</strong> importare la VM con una dotazione RAM sostenibile. <strong>Configurazione:</strong> assegnare 6 GB come baseline prudente su host da 16 GB, senza superare 8 GB. <strong>Verifica:</strong> la VM appare nella libreria VMware ed è avviabile.</p>
+            </article>
+            <article>
+              <h3>Step 7 — Integrazione networking VMware/GNS3</h3>
+              <p><strong>Obiettivo:</strong> permettere a GNS3 di comunicare correttamente con la VM e con le reti host-only richieste. <strong>Procedura:</strong> usare le preferenze GNS3 per abilitare l'integrazione VMware e consentire la gestione delle VMnet host-only necessarie.</p>
+            </article>
+            <article>
+              <h3>Step 8 — Primo avvio di GNS3</h3>
+              <p><strong>Obiettivo:</strong> completare il wizard iniziale e selezionare la GNS3 VM come backend. <strong>Verifica:</strong> il server appare attivo e raggiungibile.</p>
+            </article>
+            <article>
+              <h3>Step 9 — Primo progetto vuoto</h3>
+              <p><strong>Obiettivo:</strong> creare il primo progetto persistente con naming coerente. <strong>Nome consigliato:</strong> <code>network-engineering-learning-path-module-00</code>.</p>
+            </article>
+            <article>
+              <h3>Step 10 — Accesso ufficiale alle immagini IOSv e IOSvL2</h3>
+              <p><strong>Obiettivo:</strong> identificare il canale legittimo per reperire le immagini. <strong>Procedura:</strong> utilizzare Cisco DevNet, CML Personal o altre risorse equivalenti ufficiali, evitando qualunque fonte non autorizzata.</p>
+            </article>
+            <article>
+              <h3>Step 11 — Importazione template IOSv</h3>
+              <p><strong>Obiettivo:</strong> creare il template router sulla GNS3 VM e verificarne il boot. <strong>Verifica:</strong> il template compare nell'elenco dei router e può essere trascinato nel progetto.</p>
+            </article>
+            <article>
+              <h3>Step 12 — Importazione template IOSvL2</h3>
+              <p><strong>Obiettivo:</strong> creare il template switching per i moduli successivi. <strong>Verifica:</strong> il template risulta visibile e avviabile senza errori di boot.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="card prose-card">
+          <h2>Test finali</h2>
+          <table>
+            <thead>
+              <tr><th>Test</th><th>Contesto</th><th>PASS</th><th>FAIL</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GNS3 GUI avviata</td><td>Windows 11</td><td>Interfaccia aperta senza errori</td><td>Crash, errore server o finestra vuota</td></tr>
+              <tr><td>GNS3 VM attiva</td><td>VMware</td><td>VM accesa con boot regolare</td><td>Boot loop o importazione fallita</td></tr>
+              <tr><td>Integrazione GUI/VM</td><td>Preferences</td><td>Backend verde e selezionato</td><td>Server rosso o non raggiungibile</td></tr>
+              <tr><td>Primo progetto vuoto</td><td>Project management</td><td>Progetto salvato e riapribile</td><td>Errore di path o permessi</td></tr>
+              <tr><td>Template IOSv</td><td>Appliance</td><td>Boot completato con console</td><td>Template assente o immagine errata</td></tr>
+              <tr><td>Template IOSvL2</td><td>Appliance</td><td>Template visibile e avviabile</td><td>Errore di boot o file non corretto</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="card prose-card">
+          <h2>Evidenze da salvare nel repository privato</h2>
+          <p>Ogni partecipante deve usare la propria cartella personale nel repository privato e mantenere il naming congelato. Il caricamento operativo è spiegato in dettaglio nella pagina <a href="../operative-notes/repo-guide.html">Note operative</a>, ma già in questo modulo vanno predisposte screenshot, export e log di base.</p>
+          <ul role="list" class="bullet-list">
+            <li><code>module-00__person-N__host__screenshot__vmware-installed__v01.png</code></li>
+            <li><code>module-00__person-N__host__screenshot__gns3-installed__v01.png</code></li>
+            <li><code>module-00__person-N__gns3vm__screenshot__vm-running__v01.png</code></li>
+            <li><code>module-00__person-N__gns3__screenshot__server-green__v01.png</code></li>
+            <li><code>module-00__person-N__gns3__screenshot__empty-project__v01.png</code></li>
+            <li><code>module-00__person-N__iosv__screenshot__template-ready__v01.png</code></li>
+            <li><code>module-00__person-N__iosvl2__screenshot__template-ready__v01.png</code></li>
+          </ul>
+        </section>
+
+        <section class="card prose-card">
+          <h2>Criterio di chiusura del modulo</h2>
+          <p>Il Modulo 00 può essere considerato chiuso solo se GNS3 GUI è installata, la GNS3 VM è integrata e attiva, il primo progetto vuoto è stato creato e salvato, i template IOSv e IOSvL2 sono configurati e verificati, tutti i test finali sono stati superati e la checklist con le evidenze è stata caricata nel repository privato.</p>
+        </section>
+
+        <section class="card prose-card">
+          <h2>Topologia al termine del modulo</h2>
+<pre>
+[ GNS3 GUI ] ---- [ GNS3 VM ] ---- [ Project vuoto salvato ]
+       |
+       +---- [ Template IOSv ]
+       |
+       +---- [ Template IOSvL2 ]
+</pre>
+          <p>Il laboratorio resta quasi vuoto, ma il framework di esecuzione è pronto per essere esteso in modo cumulativo dal Modulo 01 in avanti.</p>
+        </section>
+      </article>
+
+      <aside class="sidebar-stack">
+        <div class="card sticky-card">
+          <p class="panel-label">Navigazione modulo</p>
+          <nav class="side-nav" aria-label="Indice del modulo">
+            <a href="../index.html">Torna alla home</a>
+            <a href="../operative-notes/repo-guide.html">Apri note operative</a>
+            <a href="./module-01.html">Vai al placeholder Modulo 01</a>
+          </nav>
+        </div>
+      </aside>
+    </div>
+  </main>
+</body>
+</html>
