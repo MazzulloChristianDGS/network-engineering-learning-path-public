@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network Engineering Learning Path</title>
+  <meta name="description" content="Portale pubblico del percorso formativo di networking con moduli didattici, convenzioni e note operative per il repository privato.">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=zodiak@400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/style.css">
+  <script defer src="./assets/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Salta al contenuto</a>
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="./index.html" aria-label="Vai alla home del percorso">
+        <svg viewBox="0 0 120 120" aria-hidden="true" class="brand-mark">
+          <circle cx="60" cy="60" r="46" class="brand-ring"></circle>
+          <path d="M34 73 L34 47 L60 33 L86 47 L86 73 L60 87 Z" class="brand-hex"></path>
+          <path d="M60 33 V87 M34 47 L86 73 M86 47 L34 73" class="brand-grid"></path>
+        </svg>
+        <span>
+          <strong>Network Engineering</strong>
+          <small>Learning Path</small>
+        </span>
+      </a>
+      <nav class="top-nav" aria-label="Navigazione principale">
+        <a href="./index.html">Home</a>
+        <a href="./modules/module-00.html">Modulo 00</a>
+        <a href="./operative-notes/repo-guide.html">Note operative</a>
+      </nav>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Attiva tema scuro">
+        <span aria-hidden="true">◐</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Percorso pubblico di consultazione</p>
+          <h1>Una base unica per studiare i moduli e lavorare nel repository privato senza perdere contesto.</h1>
+          <p class="hero-copy">Questo sito contiene il framework pubblico del percorso, le istruzioni complete dei moduli disponibili, le convenzioni congelate e una guida operativa dettagliata su come raccogliere e caricare le evidenze tecniche nel repository privato.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="./modules/module-00.html">Apri Modulo 00</a>
+            <a class="btn btn-secondary" href="./operative-notes/repo-guide.html">Apri note operative</a>
+          </div>
+        </div>
+        <aside class="hero-panel card">
+          <p class="panel-label">Stato del portale</p>
+          <dl class="metric-list">
+            <div>
+              <dt>Modulo disponibile</dt>
+              <dd>00 — Setup ambiente GNS3</dd>
+            </div>
+            <div>
+              <dt>Moduli predisposti</dt>
+              <dd>01 → 09</dd>
+            </div>
+            <div>
+              <dt>Repository pubblico</dt>
+              <dd>GitHub Pages attivo</dd>
+            </div>
+            <div>
+              <dt>Repository privato</dt>
+              <dd>Gestione evidenze separata</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container section-heading">
+        <p class="eyebrow">Contenuto del portale</p>
+        <h2>Cosa trovi qui</h2>
+      </div>
+      <div class="container card-grid">
+        <article class="card feature-card">
+          <p class="card-kicker">Moduli</p>
+          <h3>Istruzioni didattiche complete</h3>
+          <p>Ogni modulo pubblico raccoglie obiettivi, teoria, step pratici, test finali, criteri di chiusura e topologia di uscita. Per ora è pubblicato il Modulo 00, mentre gli altri moduli sono già predisposti come pagine future.</p>
+        </article>
+        <article class="card feature-card">
+          <p class="card-kicker">Convenzioni</p>
+          <h3>Base coerente e congelata</h3>
+          <p>Il sito mantiene visibili naming, piano di indirizzamento, topologia target, separazione pubblico/privato e regole minime di lavoro, così ogni nuovo modulo resta coerente con le decisioni già approvate.</p>
+        </article>
+        <article class="card feature-card">
+          <p class="card-kicker">Repo privato</p>
+          <h3>Note operative passo-passo</h3>
+          <p>Una sezione dedicata spiega come creare branch, aggiungere evidenze, usare il naming corretto, aprire pull request e verificare che i materiali siano archiviati nel posto giusto del repository privato.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-soft">
+      <div class="container section-heading">
+        <p class="eyebrow">Topologia finale target</p>
+        <h2>Architettura di arrivo del percorso</h2>
+        <p class="section-copy">Il portale pubblico deve mostrare da subito la destinazione finale del laboratorio, così ogni modulo viene letto come estensione coerente di un'infrastruttura già definita e non come esercizio isolato.</p>
+      </div>
+      <div class="container split-grid">
+        <article class="card prose-card">
+          <h3>Gerarchia congelata</h3>
+          <p>La topologia finale rimane composta da edge WAN, core routing, core switching, distribution, access, server, client e monitoring probe. L'obiettivo non è anticipare le configurazioni dei moduli successivi, ma rendere chiaro il punto di arrivo architetturale già dal portale pubblico.</p>
+          <ul class="inline-list" role="list">
+            <li>16 device</li>
+            <li>VLAN 10/20/30/40/99</li>
+            <li>Lab enterprise compatto</li>
+            <li>Struttura NDR-ready</li>
+          </ul>
+        </article>
+        <article class="card ascii-card">
+<pre>
+R1 ── R-CORE-1 ── SW-CORE-1 ── SW-DIST-1 ── SW-ACC-1 ── PC-CLIENT-1
+ │      │             │             │             └───── SRV-DNS
+R2 ── R-CORE-2 ── SW-CORE-2 ── SW-DIST-2 ── SW-ACC-2 ── PC-CLIENT-2
+                                             ├───── SRV-WEB
+                                             ├───── SRV-COLLECTOR
+                                             └───── MON-PROBE-1
+</pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container section-heading">
+        <p class="eyebrow">Moduli</p>
+        <h2>Pagine già predisposte</h2>
+      </div>
+      <div class="container module-grid">
+        <a class="card module-card module-live" href="./modules/module-00.html">
+          <span class="module-index">00</span>
+          <div>
+            <h3>Setup ambiente GNS3</h3>
+            <p>Modulo pubblicato con istruzioni complete, test finali ed evidenze richieste.</p>
+          </div>
+        </a>
+        <a class="card module-card" href="./modules/module-01.html"><span class="module-index">01</span><div><h3>ISO/OSI e TCP/IP</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+        <a class="card module-card" href="./modules/module-02.html"><span class="module-index">02</span><div><h3>Switching, VLAN, STP</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+        <a class="card module-card" href="./modules/module-03.html"><span class="module-index">03</span><div><h3>IPv4, IPv6, subnetting</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+        <a class="card module-card" href="./modules/module-04.html"><span class="module-index">04</span><div><h3>Routing dinamico</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+        <a class="card module-card" href="./modules/module-05.html"><span class="module-index">05</span><div><h3>TCP, UDP e flow analysis</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+        <a class="card module-card" href="./modules/module-06.html"><span class="module-index">06</span><div><h3>Protocolli applicativi</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+        <a class="card module-card" href="./modules/module-07.html"><span class="module-index">07</span><div><h3>ACL, NAT, DMZ</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+        <a class="card module-card" href="./modules/module-08.html"><span class="module-index">08</span><div><h3>Visibilità e monitoring</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+        <a class="card module-card" href="./modules/module-09.html"><span class="module-index">09</span><div><h3>Architettura finale enterprise</h3><p>Predisposto come placeholder strutturale.</p></div></a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
