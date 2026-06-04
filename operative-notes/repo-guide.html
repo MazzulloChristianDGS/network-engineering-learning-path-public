@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Note operative — Repository privato</title>
-  <meta name="description" content="Guida operativa dettagliata per caricare evidenze nel repository privato del percorso.">
+  <title>Note operative — Repository privato | Network Engineering Learning Path</title>
+  <meta name="description" content="Guida operativa completa per caricare evidenze nel repository privato del percorso di networking.">
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,109 +14,259 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Salta al contenuto</a>
+
   <header class="site-header">
-    <div class="container nav-shell">
+    <div class="container header-inner">
       <a class="brand" href="../index.html" aria-label="Vai alla home del percorso">
-        <svg viewBox="0 0 120 120" aria-hidden="true" class="brand-mark">
-          <circle cx="60" cy="60" r="46" class="brand-ring"></circle>
-          <path d="M34 73 L34 47 L60 33 L86 47 L86 73 L60 87 Z" class="brand-hex"></path>
-          <path d="M60 33 V87 M34 47 L86 73 M86 47 L34 73" class="brand-grid"></path>
-        </svg>
-        <span><strong>Network Engineering</strong><small>Learning Path</small></span>
+        <div class="brand-mark" aria-hidden="true"></div>
+        <span class="brand-text">
+          <strong>Network Engineering</strong>
+          <small>Learning Path</small>
+        </span>
       </a>
-      <nav class="top-nav" aria-label="Navigazione principale">
+      <nav class="site-nav" aria-label="Navigazione principale">
         <a href="../index.html">Home</a>
         <a href="../modules/module-00.html">Modulo 00</a>
-        <a href="./repo-guide.html">Note operative</a>
+        <a href="./repo-guide.html" aria-current="page">Note operative</a>
       </nav>
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Attiva tema scuro"><span aria-hidden="true">◐</span></button>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Attiva tema scuro">
+        <span aria-hidden="true">&#9680;</span>
+      </button>
     </div>
   </header>
-  <main id="main" class="section">
-    <div class="container page-intro narrow-stack">
-      <p class="eyebrow">Guida operativa</p>
-      <h1>Come caricare correttamente le evidenze nel repository privato</h1>
-      <p class="hero-copy">Questa pagina spiega, in ordine rigoroso, come preparare file, naming, branch, commit e pull request nel repository privato. L'obiettivo è evitare caos, duplicazioni, path errati e perdita di tracciabilità tra modulo eseguito ed evidenze caricate.</p>
-    </div>
 
-    <div class="container reading-layout">
-      <article class="content-stack">
-        <section class="card prose-card">
-          <h2>Prima di iniziare</h2>
-          <p>Ogni partecipante deve lavorare solo nella propria area dedicata dentro <code>evidence/participants/person-N/</code> e deve caricare esclusivamente materiale relativo al modulo in corso. Nessuna evidenza grezza va salvata in cartelle consolidate o in aree di governance, che restano di competenza del maintainer.</p>
-          <p>Prima di creare file nel repository privato, verifica sempre tre cose: numero modulo corretto, identità del partecipante coerente con il path e descrizione sintetica dell'evidenza. Se uno di questi tre elementi è ambiguo, il file va rinominato prima del commit.</p>
-        </section>
+  <main id="main">
 
-        <section class="card prose-card">
-          <h2>Struttura di destinazione</h2>
-          <p>La regola base è semplice: le evidenze individuali vanno in <code>evidence/participants/person-N/module-XX/</code>. Eventuali sottocartelle locali come <code>final-tests/</code> o <code>notes/</code> possono essere usate solo se già previste nelle istruzioni del modulo e devono restare dentro la directory del modulo.</p>
-          <table>
-            <thead>
-              <tr><th>Tipo materiale</th><th>Destinazione</th><th>Note</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Screenshot</td><td><code>evidence/participants/person-N/module-XX/</code></td><td>Solo file nominati con convenzione congelata</td></tr>
-              <tr><td>CLI output e log</td><td><code>evidence/participants/person-N/module-XX/</code></td><td>Preferire .txt o .md leggibili</td></tr>
-              <tr><td>Checklist compilata</td><td><code>evidence/participants/person-N/module-XX/notes/</code></td><td>Solo se previsto dal modulo</td></tr>
-              <tr><td>Final tests</td><td><code>evidence/participants/person-N/module-XX/final-tests/</code></td><td>Usare solo per artefatti conclusivi</td></tr>
-              <tr><td>Snapshot laboratorio approvati</td><td><code>gns3/exports/</code></td><td>Solo se richiesti e approvati</td></tr>
-            </tbody>
-          </table>
-        </section>
-
-        <section class="card prose-card">
-          <h2>Naming corretto dei file</h2>
-          <p>Ogni file deve rispettare la convenzione congelata: <code>module-XX__person-N__scope__artifact-type__short-description__vNN.ext</code>. Questa convenzione non è opzionale, perché serve a capire modulo, autore, contenuto e revisione del file senza doverlo aprire.</p>
-          <ul role="list" class="bullet-list">
-            <li><code>module-00__person-1__host__screenshot__gns3-installed__v01.png</code></li>
-            <li><code>module-00__person-2__gns3__cli-output__setup-wizard-summary__v01.txt</code></li>
-            <li><code>module-00__person-3__iosv__screenshot__template-ready__v02.png</code></li>
-          </ul>
-          <p>Il numero di versione aumenta solo quando il file viene corretto o sostituito. Non usare nomi vaghi come <code>test1.png</code>, <code>screen finale.png</code> o <code>config nuovo.txt</code>.</p>
-        </section>
-
-        <section class="card prose-card">
-          <h2>Flusso operativo consigliato</h2>
-          <ol class="number-list">
-            <li>Crea o aggiorna un branch dedicato coerente con il modulo, ad esempio <code>participant-1/module-00</code>.</li>
-            <li>Verifica di essere sul branch corretto prima di toccare i file.</li>
-            <li>Copia le evidenze locali nella directory giusta del repository.</li>
-            <li>Controlla naming, estensioni e path finali.</li>
-            <li>Apri ogni file critico almeno una volta per assicurarti che non sia corrotto o vuoto.</li>
-            <li>Fai commit con messaggio leggibile, ad esempio <code>module-00: add participant-1 evidence set v01</code>.</li>
-            <li>Apri una pull request verso <code>main</code> solo quando il set è coerente e completo.</li>
-          </ol>
-        </section>
-
-        <section class="card prose-card">
-          <h2>Checklist di controllo prima della pull request</h2>
-          <ul role="list" class="bullet-list">
-            <li>Il branch è quello giusto e non contiene materiale di altri moduli.</li>
-            <li>Le evidenze sono tutte nella cartella del modulo corretto.</li>
-            <li>I nomi dei file seguono il pattern congelato.</li>
-            <li>Non ci sono duplicati inutili o file temporanei.</li>
-            <li>Gli screenshot si aprono correttamente.</li>
-            <li>I file .txt o .md sono leggibili e completi.</li>
-            <li>La PR descrive cosa è stato caricato e cosa è ancora mancante.</li>
-          </ul>
-        </section>
-
-        <section class="card prose-card">
-          <h2>Errori da evitare</h2>
-          <p>Non caricare evidenze direttamente su <code>main</code>, non usare nomi generici, non mischiare moduli diversi nello stesso commit e non salvare output importanti come screenshot di terminale sfocati se puoi esportare un file testuale leggibile. Ogni volta che un'evidenza è poco leggibile o mal posizionata, la review diventa più lenta e aumenta il rischio di dover rifare il caricamento.</p>
-        </section>
-      </article>
-
-      <aside class="sidebar-stack">
-        <div class="card sticky-card">
-          <p class="panel-label">Collegamenti rapidi</p>
-          <nav class="side-nav" aria-label="Collegamenti rapidi">
-            <a href="../modules/module-00.html">Apri Modulo 00</a>
-            <a href="../index.html">Torna alla home</a>
-          </nav>
+    <!-- Hero -->
+    <section class="hero section">
+      <div class="container">
+        <p class="eyebrow">Guida operativa</p>
+        <h1 class="page-title">Come caricare le evidenze nel repository privato</h1>
+        <p class="hero-copy">
+          Questa pagina spiega, in ordine rigoroso, come preparare file, naming,
+          branch, commit e pull request nel repository privato. L’obiettivo è evitare
+          caos, duplicazioni, path errati e perdita di tracciabilità tra modulo
+          eseguito ed evidenze caricate.
+        </p>
+        <div class="hero-actions">
+          <a class="button-ghost" href="../index.html">&larr; Torna alla home</a>
+          <a class="button" href="../modules/module-00.html">Apri Modulo 00</a>
         </div>
-      </aside>
-    </div>
+      </div>
+    </section>
+
+    <!-- Contenuto + sidebar -->
+    <section class="section">
+      <div class="container content-layout">
+
+        <article class="content">
+
+          <!-- 1. Prima di iniziare -->
+          <section id="prima-di-iniziare">
+            <h2>Prima di iniziare</h2>
+            <p>
+              Ogni partecipante lavora solo nella propria area dedicata
+              <code>evidence/participants/person-N/</code> e carica esclusivamente
+              materiale relativo al modulo in corso. Le cartelle consolidate e di
+              governance restano di competenza del maintainer.
+            </p>
+            <p>
+              Prima di creare file nel repository privato, verifica sempre tre cose:
+              numero modulo corretto, identità del partecipante coerente con il path
+              e descrizione sintetica dell’evidenza. Se uno di questi tre elementi
+              è ambiguo, rinomina il file prima del commit.
+            </p>
+            <div class="callout card">
+              <strong>&#9888; Regola fondamentale</strong>
+              <p>Non lavorare mai direttamente su <code>main</code>.
+                Usa sempre un branch dedicato nel formato
+                <code>participant-N/module-XX</code> e apri una pull request
+                verso <code>main</code> solo quando il set è coerente e completo.
+                Solo il maintainer può fare merge.</p>
+            </div>
+          </section>
+
+          <!-- 2. Struttura -->
+          <section id="struttura">
+            <h2>Struttura di destinazione</h2>
+            <p>
+              Le evidenze individuali vanno in
+              <code>evidence/participants/person-N/module-XX/</code>.
+              Le sottocartelle <code>screenshots/</code>, <code>captures/</code>
+              e <code>show-commands/</code> sono già predisposte per ogni
+              partecipante e ogni modulo.
+            </p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Tipo materiale</th><th>Destinazione</th><th>Note</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Screenshot</td>
+                    <td><code>evidence/participants/person-N/module-XX/screenshots/</code></td>
+                    <td>Solo file nominati con convenzione congelata</td>
+                  </tr>
+                  <tr>
+                    <td>Capture Wireshark (.pcap)</td>
+                    <td><code>evidence/participants/person-N/module-XX/captures/</code></td>
+                    <td>Una capture per link rilevante</td>
+                  </tr>
+                  <tr>
+                    <td>CLI output e show commands</td>
+                    <td><code>evidence/participants/person-N/module-XX/show-commands/</code></td>
+                    <td>Preferire .txt leggibili da terminale</td>
+                  </tr>
+                  <tr>
+                    <td>Running-config (condivise)</td>
+                    <td><code>gns3/configs/module-XX/</code></td>
+                    <td>Un solo set condiviso per il laboratorio</td>
+                  </tr>
+                  <tr>
+                    <td>Export GNS3 (condivisi)</td>
+                    <td><code>gns3/exports/module-XX/</code></td>
+                    <td>Un solo export .gns3project per modulo</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- 3. Naming -->
+          <section id="naming">
+            <h2>Naming obbligatorio dei file</h2>
+            <p>
+              Ogni file deve rispettare la convenzione congelata.
+              Il pattern è unico per tutto il percorso e non ha eccezioni.
+            </p>
+            <pre>module-XX__person-N__scope__artifact-type__short-description__vNN.ext</pre>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Campo</th><th>Valori ammessi</th><th>Esempio</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><code>module-XX</code></td><td><code>module-00</code> → <code>module-09</code></td><td><code>module-00</code></td></tr>
+                  <tr><td><code>person-N</code></td><td><code>person-1</code>, <code>person-2</code>, <code>person-3</code> oppure <code>shared</code></td><td><code>person-1</code></td></tr>
+                  <tr><td><code>scope</code></td><td>device, servizio o ambito (es. <code>R1</code>, <code>gns3</code>, <code>host</code>)</td><td><code>R1</code></td></tr>
+                  <tr><td><code>artifact-type</code></td><td><code>screenshot</code>, <code>cli-output</code>, <code>pcap</code>, <code>running-config</code>, <code>export-gns3</code></td><td><code>screenshot</code></td></tr>
+                  <tr><td><code>short-description</code></td><td>descrizione sintetica in kebab-case</td><td><code>gns3-installed</code></td></tr>
+                  <tr><td><code>vNN</code></td><td>versione a due cifre, parte da <code>v01</code></td><td><code>v01</code></td></tr>
+                  <tr><td><code>.ext</code></td><td><code>.png</code>, <code>.pcap</code>, <code>.txt</code>, <code>.md</code>, <code>.gns3project</code></td><td><code>.png</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3>Esempi corretti per il Modulo 00</h3>
+            <p>Evidenze individuali (ogni partecipante nella propria cartella):</p>
+            <ul role="list" class="bullet-list">
+              <li><code>module-00__person-1__host__screenshot__gns3-installed__v01.png</code></li>
+              <li><code>module-00__person-2__gns3__screenshot__gns3vm-connected__v01.png</code></li>
+              <li><code>module-00__person-1__R1-R2__pcap__ICMP-Gi0-0__v01.pcap</code></li>
+              <li><code>module-00__person-1__R1__cli-output__ping-R2__v01.txt</code></li>
+              <li><code>module-00__person-2__R2__cli-output__ping-R1__v01.txt</code></li>
+            </ul>
+            <p>Evidenze condivise (un solo set per il laboratorio):</p>
+            <ul role="list" class="bullet-list">
+              <li><code>module-00__shared__R1__running-config__post-setup__v01.txt</code></li>
+              <li><code>module-00__shared__R2__running-config__post-setup__v01.txt</code></li>
+              <li><code>module-00__shared__gns3__export-gns3__topology-bootstrap__v01.gns3project</code></li>
+            </ul>
+            <div class="callout card">
+              <strong>&#9432; Regole separatori</strong>
+              <p>Tra campi usa <code>__</code> (doppio underscore).
+                All’interno di un campo usa <code>-</code> (trattino singolo).
+                Interfacce: <code>Gi0/0</code> diventa <code>Gi0-0</code>.
+                Device in maiuscolo: <code>R1</code>, <code>SW-ACC-1</code>.
+                Versione parte da <code>v01</code> e aumenta solo a correzione.</p>
+            </div>
+          </section>
+
+          <!-- 4. Flusso operativo -->
+          <section id="flusso">
+            <h2>Flusso operativo consigliato</h2>
+            <p>
+              Segui questi passi in ordine. Non saltare la verifica del branch
+              prima di toccare i file e non aprire la PR finché il set non è completo.
+            </p>
+            <ol class="number-list">
+              <li>Crea il branch: <code>git checkout -b participant-N/module-XX</code></li>
+              <li>Verifica di essere sul branch corretto prima di copiare qualsiasi file.</li>
+              <li>Copia le evidenze locali nelle cartelle corrette del repository.</li>
+              <li>Controlla naming, estensioni e path finali.</li>
+              <li>Apri ogni file critico per assicurarti che non sia corrotto o vuoto.</li>
+              <li>Fai commit con messaggio leggibile:<br>
+                <code>module-XX: add participant-N evidence set v01</code></li>
+              <li>Apri la pull request verso <code>main</code> solo quando il set è coerente e completo.</li>
+            </ol>
+          </section>
+
+          <!-- 5. Checklist PR -->
+          <section id="checklist">
+            <h2>Checklist pre-pull request</h2>
+            <ul role="list" class="bullet-list">
+              <li>Il branch è <code>participant-N/module-XX</code> e non contiene materiale di altri moduli.</li>
+              <li>Le evidenze sono tutte nella cartella del modulo corretto.</li>
+              <li>I nomi dei file seguono il pattern congelato.</li>
+              <li>Non ci sono duplicati inutili o file temporanei.</li>
+              <li>Gli screenshot si aprono correttamente.</li>
+              <li>I file <code>.txt</code> o <code>.md</code> sono leggibili e completi.</li>
+              <li>Le running-config condivise sono in <code>gns3/configs/module-XX/</code>.</li>
+              <li>L’export GNS3 condiviso è in <code>gns3/exports/module-XX/</code>.</li>
+              <li>La checklist del modulo in <code>docs/verification/module-XX-checklist.md</code> è compilata e committata.</li>
+              <li>La PR descrive cosa è stato caricato e cosa è ancora mancante.</li>
+            </ul>
+          </section>
+
+          <!-- 6. Errori comuni -->
+          <section id="errori">
+            <h2>Errori da evitare</h2>
+            <p>
+              Non caricare evidenze direttamente su <code>main</code>.
+              Non usare nomi generici come <code>test.png</code>, <code>screen finale.png</code>
+              o <code>config nuovo.txt</code>. Non mischiare moduli diversi nello stesso
+              commit. Non salvare output importanti come screenshot di terminale sfocati
+              se puoi esportare un file testuale leggibile.
+            </p>
+            <p>
+              Non caricare le running-config o gli export GNS3 nelle cartelle individuali
+              dei partecipanti: quei file sono condivisi e vanno in <code>gns3/configs/</code>
+              e <code>gns3/exports/</code>. Ogni volta che un’evidenza è mal posizionata
+              o mal nominata, la review diventa più lenta e aumenta il rischio di
+              dover rifare il caricamento.
+            </p>
+          </section>
+
+        </article>
+
+        <!-- Sidebar TOC -->
+        <aside class="sidebar-sticky">
+          <nav class="toc card" aria-label="Indice della guida">
+            <h3>Indice</h3>
+            <a href="#prima-di-iniziare">Prima di iniziare</a>
+            <a href="#struttura">Struttura cartelle</a>
+            <a href="#naming">Naming dei file</a>
+            <a href="#flusso">Flusso operativo</a>
+            <a href="#checklist">Checklist pre-PR</a>
+            <a href="#errori">Errori da evitare</a>
+          </nav>
+          <div class="card" style="margin-top: 1rem; padding: 1rem;">
+            <p class="panel-label">Risorse collegate</p>
+            <nav class="toc" aria-label="Risorse collegate">
+              <a href="../modules/module-00.html">Modulo 00</a>
+              <a href="../index.html">Home portale</a>
+            </nav>
+          </div>
+        </aside>
+
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>Network Engineering Learning Path &mdash; portale pubblico</span>
+      <span>Repository pubblico su GitHub Pages</span>
+    </div>
+  </footer>
 </body>
 </html>

@@ -37,7 +37,7 @@
 
   <main id="main">
 
-    <!-- ── Hero modulo ─────────────────────────────────────────── -->
+    <!-- Hero modulo -->
     <section class="hero section">
       <div class="container">
         <p class="eyebrow">Modulo 00</p>
@@ -45,8 +45,8 @@
         <p class="hero-copy">
           Prima di avvicinarsi a qualsiasi protocollo di rete è necessario disporre
           di un ambiente di laboratorio funzionante, stabile e replicabile.
-          Questo modulo guida l'installazione completa di GNS3, la configurazione
-          delle immagini Cisco IOS/IOSvL2 e la verifica che l'ambiente sia pronto
+          Questo modulo guida l’installazione completa di GNS3, la configurazione
+          delle immagini Cisco IOS/IOSvL2 e la verifica che l’ambiente sia pronto
           a supportare tutti i moduli successivi.
         </p>
         <div class="module-meta">
@@ -64,135 +64,51 @@
       </div>
     </section>
 
-    <!-- ── Contenuto principale ───────────────────────────────── -->
+    <!-- Contenuto principale -->
     <section class="section">
       <div class="container content-layout">
 
-        <!-- Contenuto -->
         <article class="content">
 
           <!-- Obiettivo -->
           <section id="obiettivo">
             <h2>Obiettivo del modulo</h2>
-            <p>
-              Al termine di questo modulo il partecipante sarà in grado di svolgere
-              autonomamente le seguenti attività:
-            </p>
+            <p>Al termine di questo modulo il partecipante sarà in grado di svolgere autonomamente le seguenti attività:</p>
             <ol>
-              <li>
-                Installare GNS3 su un sistema Windows, macOS o Linux, verificarne
-                il corretto avvio e configurare GNS3 VM come hypervisor di backend.
-              </li>
-              <li>
-                Importare le immagini Cisco IOSv (router) e IOSvL2 (switch) in GNS3,
-                verificarne la firma e associarle ai template corretti.
-              </li>
-              <li>
-                Creare un progetto GNS3 vuoto seguendo le convenzioni di naming del
-                percorso, posizionare i device sulla canvas e avviarli senza errori.
-              </li>
-              <li>
-                Verificare la connettività tra due device usando un cloud o uno switch
-                di management, e salvare una prima topologia come snapshot di riferimento.
-              </li>
-              <li>
-                Configurare Wireshark come sniffer integrato in GNS3 e catturare il
-                traffico su un link attivo, salvando la capture nella cartella prevista
-                dal repo privato.
-              </li>
+              <li>Installare GNS3 su un sistema Windows, macOS o Linux, verificarne il corretto avvio e configurare GNS3 VM come hypervisor di backend.</li>
+              <li>Importare le immagini Cisco IOSv (router) e IOSvL2 (switch) in GNS3, verificarne la firma e associarle ai template corretti.</li>
+              <li>Creare un progetto GNS3 vuoto seguendo le convenzioni di naming del percorso, posizionare i device sulla canvas e avviarli senza errori.</li>
+              <li>Verificare la connettività tra due device usando un cloud o uno switch di management, e salvare una prima topologia come snapshot di riferimento.</li>
+              <li>Configurare Wireshark come sniffer integrato in GNS3 e catturare il traffico su un link attivo, salvando la capture nella cartella prevista dal repo privato.</li>
             </ol>
           </section>
 
           <!-- Stato ingresso -->
           <section id="stato-ingresso">
-            <h2>Stato del laboratorio all'ingresso</h2>
-            <p>
-              Il laboratorio è completamente vuoto. Non esiste ancora nessun progetto
-              GNS3, nessun device configurato, nessuna topologia. Questo modulo è
-              il bootstrap assoluto: l'unico prerequisito è disporre di un sistema
-              host con almeno 16 GB di RAM, un processore con virtualizzazione hardware
-              abilitata (Intel VT-x o AMD-V) e 50 GB di spazio disco libero.
-            </p>
+            <h2>Stato del laboratorio all’ingresso</h2>
+            <p>Il laboratorio è completamente vuoto. Non esiste ancora nessun progetto GNS3, nessun device configurato, nessuna topologia. Questo modulo è il bootstrap assoluto: l’unico prerequisito è disporre di un sistema host con almeno 16 GB di RAM, un processore con virtualizzazione hardware abilitata (Intel VT-x o AMD-V) e 50 GB di spazio disco libero.</p>
             <div class="callout card">
               <strong>&#9888; Requisiti minimi hardware</strong>
-              <p>
-                RAM: 16 GB (consigliati 32 GB per avere tutti i device del modulo 09 attivi
-                contemporaneamente). CPU: 4 core fisici con VT-x/AMD-V abilitato nel BIOS.
-                Disco: 50 GB liberi per immagini, progetti e capture.
-              </p>
+              <p>RAM: 16 GB (consigliati 32 GB). CPU: 4 core fisici con VT-x/AMD-V abilitato nel BIOS. Disco: 50 GB liberi per immagini, progetti e capture.</p>
             </div>
           </section>
 
           <!-- Teoria -->
           <section id="teoria">
             <h2>Teoria</h2>
-
-            <h3>Cos'è GNS3 e come funziona</h3>
-            <p>
-              GNS3 (Graphical Network Simulator 3) è un emulatore di rete open source
-              che permette di eseguire immagini reali di sistemi operativi di rete —
-              Cisco IOS, IOSv, IOSvL2, FRR, VyOS e molti altri — all'interno di
-              macchine virtuali o processi containerizzati sul tuo sistema host.
-              A differenza di un simulatore (che riproduce il comportamento teorico di
-              un protocollo), GNS3 esegue il binario originale del sistema operativo:
-              i pacchetti che circolano nel laboratorio sono pacchetti reali, le tabelle
-              di routing sono tabelle reali, e gli errori di configurazione producono
-              gli stessi effetti che produrrebbero su hardware fisico.
-            </p>
-            <p>
-              GNS3 è composto da due componenti principali: il <strong>GNS3 GUI</strong>,
-              che gira sull'host e fornisce l'interfaccia grafica per disegnare le topologie,
-              e il <strong>GNS3 Server</strong>, che può essere locale (gira direttamente
-              sull'host) oppure remoto (gira su GNS3 VM, una macchina virtuale
-              distribuita da GNS3 per separare il carico computazionale dall'host).
-              Per questo percorso è obbligatorio usare GNS3 VM come backend perché
-              le immagini Cisco IOSv richiedono KVM/QEMU, disponibile nativamente
-              in GNS3 VM ma non in tutti i sistemi host.
-            </p>
-
+            <h3>Cos’è GNS3 e come funziona</h3>
+            <p>GNS3 (Graphical Network Simulator 3) è un emulatore di rete open source che permette di eseguire immagini reali di sistemi operativi di rete — Cisco IOS, IOSv, IOSvL2, FRR, VyOS e molti altri — all’interno di macchine virtuali o processi containerizzati sul tuo sistema host. A differenza di un simulatore (che riproduce il comportamento teorico di un protocollo), GNS3 esegue il binario originale del sistema operativo: i pacchetti che circolano nel laboratorio sono pacchetti reali, le tabelle di routing sono tabelle reali, e gli errori di configurazione producono gli stessi effetti che produrrebbero su hardware fisico.</p>
+            <p>GNS3 è composto da due componenti principali: il <strong>GNS3 GUI</strong>, che gira sull’host e fornisce l’interfaccia grafica per disegnare le topologie, e il <strong>GNS3 Server</strong>, che può essere locale oppure remoto (GNS3 VM). Per questo percorso è obbligatorio usare GNS3 VM come backend perché le immagini Cisco IOSv richiedono KVM/QEMU.</p>
             <h3>Immagini Cisco IOSv e IOSvL2</h3>
-            <p>
-              Cisco IOSv è l'immagine di un router Cisco virtualizzato, distribuita
-              da Cisco per ambienti di lab. Non è una simulazione: è il sistema
-              operativo IOS reale compilato per architettura x86. IOSvL2 è la
-              variante per switch Layer 2, con supporto a VLAN, STP, 802.1Q trunk
-              e tutte le feature di switching che incontrerai nei moduli 2 e 3.
-              Entrambe le immagini sono file <code>.qcow2</code> (formato disco QEMU)
-              che GNS3 importa come template e monta come disco della macchina virtuale
-              ad ogni avvio del device.
-            </p>
+            <p>Cisco IOSv è l’immagine di un router Cisco virtualizzato, distribuita da Cisco per ambienti di lab. Non è una simulazione: è il sistema operativo IOS reale compilato per architettura x86. IOSvL2 è la variante per switch Layer 2, con supporto a VLAN, STP, 802.1Q trunk e tutte le feature di switching. Entrambe le immagini sono file <code>.qcow2</code> che GNS3 importa come template e monta come disco della macchina virtuale ad ogni avvio del device.</p>
             <div class="callout card">
               <strong>&#9432; Nota legale</strong>
-              <p>
-                Le immagini Cisco IOSv sono distribuite da Cisco sotto licenza e
-                richiedono un account Cisco con accesso a VIRL/CML o un account
-                Cisco DevNet. Non sono redistribuibili liberamente. Se non hai
-                accesso alle immagini Cisco, GNS3 supporta anche FRRouting (FRR)
-                come alternativa open source per la parte di routing dei moduli 3 e 4.
-              </p>
+              <p>Le immagini Cisco IOSv richiedono un account Cisco con accesso a VIRL/CML o Cisco DevNet. Non sono redistribuibili liberamente.</p>
             </div>
-
             <h3>Architettura GNS3 VM</h3>
-            <p>
-              GNS3 VM è una macchina virtuale basata su Ubuntu Server, distribuita
-              in formato OVA per VMware Workstation/Fusion/ESXi e in formato per
-              VirtualBox. Gira in background sull'host e funge da server QEMU/KVM
-              per i device del laboratorio. Il GUI GNS3 si collega a GNS3 VM via API
-              REST su localhost, trasparentemente per l'utente. Il traffico tra device
-              GNS3 è traffico virtuale interno alla VM; per uscire verso l'esterno
-              (internet, macchine fisiche) si usa il nodo <em>Cloud</em> di GNS3.
-            </p>
-
+            <p>GNS3 VM è una macchina virtuale basata su Ubuntu Server, distribuita in formato OVA per VMware e VirtualBox. Gira in background sull’host e funge da server QEMU/KVM per i device del laboratorio. Il GUI GNS3 si collega a GNS3 VM via API REST su localhost, trasparentemente per l’utente.</p>
             <h3>Wireshark integrato</h3>
-            <p>
-              GNS3 supporta la cattura del traffico su qualsiasi link della topologia
-              facendo click destro sul link e selezionando <em>Start capture</em>.
-              Internamente GNS3 usa <code>tcpdump</code> all'interno di GNS3 VM per
-              catturare i pacchetti e li passa in tempo reale a Wireshark sull'host
-              tramite un pipe named. Questo meccanismo è fondamentale per tutto il
-              percorso: ogni modulo include un esercizio di analisi Wireshark su
-              traffico reale catturato direttamente dai link del laboratorio.
-            </p>
+            <p>GNS3 supporta la cattura del traffico su qualsiasi link della topologia facendo click destro sul link e selezionando <em>Start capture</em>. Internamente GNS3 usa <code>tcpdump</code> all’interno di GNS3 VM e passa i pacchetti in tempo reale a Wireshark sull’host tramite un pipe named. Questo meccanismo è fondamentale per tutto il percorso.</p>
           </section>
 
           <!-- Step pratici -->
@@ -201,115 +117,81 @@
 
             <h3>Step 1 — Installazione GNS3 GUI e GNS3 VM</h3>
             <p><strong>Obiettivo:</strong> avere GNS3 GUI avviato e connesso a GNS3 VM senza errori.</p>
-            <p><strong>Dispositivi coinvolti:</strong> sistema host.</p>
-            <p><strong>Prerequisiti:</strong> VMware Workstation/Fusion o VirtualBox installato.</p>
             <ol>
-              <li>Scarica GNS3 all-in-one installer da <code>gns3.com/software/download</code>.
-                Installa selezionando tutte le componenti (Wireshark incluso).</li>
+              <li>Scarica GNS3 all-in-one installer da <code>gns3.com/software/download</code>. Installa selezionando tutte le componenti (Wireshark incluso).</li>
               <li>Scarica GNS3 VM OVA dalla stessa pagina, versione corrispondente al GUI.</li>
-              <li>Importa l'OVA in VMware/VirtualBox. Assegna almeno 4 vCPU e 8 GB di RAM alla VM.
-                Abilita nested virtualization (VT-x/AMD-V) nelle impostazioni della VM.</li>
-              <li>Avvia GNS3 VM. Annota l'indirizzo IP mostrato a schermo (es. <code>192.168.x.y</code>).</li>
-              <li>Avvia GNS3 GUI. Al primo avvio, Setup Wizard: scegli <em>Run appliances on a
-                remote server (GNS3 VM)</em>. Inserisci l'IP di GNS3 VM e porta <code>3080</code>.</li>
-              <li>Verifica: in basso a destra nella GUI compare un indicatore verde con la scritta
-                "GNS3 VM". Se è arancione o rosso, controlla che GNS3 VM sia avviata e che
-                l'IP sia corretto.</li>
+              <li>Importa l’OVA in VMware/VirtualBox. Assegna almeno 4 vCPU e 8 GB di RAM. Abilita nested virtualization.</li>
+              <li>Avvia GNS3 VM. Annota l’indirizzo IP mostrato a schermo.</li>
+              <li>Avvia GNS3 GUI. Setup Wizard: scegli <em>Run appliances on a remote server (GNS3 VM)</em>. Inserisci l’IP di GNS3 VM e porta <code>3080</code>.</li>
+              <li>Verifica: indicatore verde con scritta “GNS3 VM” in basso a destra nella GUI.</li>
             </ol>
-            <p><strong>Verifica:</strong></p>
             <div class="table-wrap">
               <table>
                 <thead><tr><th>Controllo</th><th>Risultato atteso</th></tr></thead>
                 <tbody>
-                  <tr><td>Indicatore server in basso a destra</td><td>Verde — GNS3 VM connessa</td></tr>
-                  <tr><td>Servers Summary (Edit &rarr; Servers)</td><td>GNS3 VM: Running</td></tr>
+                  <tr><td>Indicatore server GUI</td><td>Verde — GNS3 VM connessa</td></tr>
+                  <tr><td>Servers Summary</td><td>GNS3 VM: Running</td></tr>
                 </tbody>
               </table>
             </div>
-            <p><strong>Se la verifica fallisce:</strong> verifica che GNS3 VM sia avviata,
-              che nested virtualization sia abilitata, e che il firewall dell'host
-              non blocchi la porta 3080.</p>
 
             <h3>Step 2 — Import immagini Cisco IOSv e IOSvL2</h3>
-            <p><strong>Obiettivo:</strong> avere i template IOSv e IOSvL2 disponibili nella
-              palette dispositivi di GNS3.</p>
-            <p><strong>Dispositivi coinvolti:</strong> sistema host + GNS3 VM.</p>
-            <p><strong>Prerequisiti:</strong> file <code>vios-adventerprisek9-m.qcow2</code>
-              e <code>vios_l2-adventerprisek9-m.qcow2</code> disponibili localmente.</p>
+            <p><strong>Obiettivo:</strong> avere i template IOSv e IOSvL2 disponibili nella palette dispositivi di GNS3.</p>
             <ol>
               <li>In GNS3 GUI: Edit &rarr; Preferences &rarr; QEMU &rarr; Qemu VMs &rarr; New.</li>
-              <li>Nome template: <code>Cisco-IOSv</code>. RAM: 512 MB. vCPU: 1.</li>
-              <li>Disco HDA: seleziona il file <code>.qcow2</code> di IOSv. GNS3 lo copia
-                automaticamente su GNS3 VM.</li>
+              <li>Nome template: <code>Cisco-IOSv</code>. RAM: 512 MB. vCPU: 1. Disco HDA: seleziona il file <code>.qcow2</code> di IOSv.</li>
               <li>Ripeti per IOSvL2 con nome template <code>Cisco-IOSvL2</code>. RAM: 768 MB.</li>
-              <li>Dopo l'import, ogni template compare nella palette sinistra della GUI
-                sotto la categoria <em>Routers</em> (IOSv) e <em>Switches</em> (IOSvL2).</li>
             </ol>
-            <p><strong>Verifica:</strong> trascina un'istanza IOSv sulla canvas, avviala
-              (play verde) e attendi il boot. Dopo circa 60 secondi, doppio click sull'icona
-              per aprire la console. Deve comparire il prompt IOS:
-              <code>Router&gt;</code></p>
+            <p><strong>Verifica:</strong> trascina un’istanza IOSv sulla canvas, avviala e attendi il boot (~60 secondi). Console: deve comparire il prompt <code>Router&gt;</code>.</p>
 
             <h3>Step 3 — Creazione progetto base e naming dei device</h3>
-            <p><strong>Obiettivo:</strong> creare il progetto GNS3 con naming standard e
-              i primi 2 device correttamente nominati.</p>
-            <p><strong>Prerequisiti:</strong> Step 1 e 2 completati.</p>
+            <p><strong>Obiettivo:</strong> creare il progetto GNS3 con naming standard e i primi 2 device nominati correttamente.</p>
             <ol>
-              <li>File &rarr; New blank project. Nome: <code>network-learning-path</code>.
-                Questo sarà il progetto unico che crescerà modulo per modulo.</li>
-              <li>Aggiungi un'istanza IOSv. Click destro &rarr; Change hostname:
-                <code>R1</code>.</li>
+              <li>File &rarr; New blank project. Nome: <code>network-learning-path</code>.</li>
+              <li>Aggiungi un’istanza IOSv. Click destro &rarr; Change hostname: <code>R1</code>.</li>
               <li>Aggiungi una seconda istanza IOSv. Rinominala <code>R2</code>.</li>
-              <li>Collega R1 a R2 con un link punto-punto. Usa il tool cavo (icona matita).
-                Scegli <code>Gi0/0</code> su R1 e <code>Gi0/0</code> su R2.</li>
-              <li>File &rarr; Save project. File &rarr; Export portable project &rarr;
-                salva come
-                <code>MOD-00_topology-bootstrap_YYYY-MM-DD.gns3project</code>
+              <li>Collega R1 Gi0/0 a R2 Gi0/0 con un link punto-punto.</li>
+              <li>File &rarr; Save project.</li>
+              <li>File &rarr; Export portable project &rarr; salva con naming canonico:<br>
+                <code>module-00__shared__gns3__export-gns3__topology-bootstrap__v01.gns3project</code><br>
                 nella cartella <code>gns3/exports/module-00/</code> del repo privato.</li>
             </ol>
             <div class="callout card">
-              <strong>Convenzione naming obbligatoria</strong>
-              <p>
-                Il naming dei device è congelato per tutto il percorso.
-                Non rinominare mai i device una volta assegnati.
-                R1 e R2 saranno i router di edge WAN nella topologia finale.
-              </p>
+              <strong>Naming device congelato</strong>
+              <p>Non rinominare mai i device una volta assegnati. R1 e R2 saranno i router edge WAN nella topologia finale a 16 device.</p>
             </div>
 
-            <h3>Step 4 — Integrazione Wireshark e prima capture</h3>
-            <p><strong>Obiettivo:</strong> catturare traffico ICMP sul link R1-R2
-              e salvare il file .pcap nel repo privato.</p>
-            <p><strong>Prerequisiti:</strong> Step 3 completato, R1 e R2 avviati.</p>
+            <h3>Step 4 — Configurazione IP e prima capture Wireshark</h3>
+            <p><strong>Obiettivo:</strong> connettività IP tra R1 e R2 verificata con ping e capture ICMP salvata.</p>
             <ol>
-              <li>Configura gli indirizzi IP minimi su R1 e R2:</li>
+              <li>Configura R1:</li>
             </ol>
-            <pre>! --- Su R1 ---
-R1&gt; enable
+            <pre>R1&gt; enable
 R1# configure terminal
 R1(config)# interface GigabitEthernet0/0
 R1(config-if)# ip address 10.0.0.1 255.255.255.252
 R1(config-if)# no shutdown
 R1(config-if)# end
 R1# write memory</pre>
-            <pre>! --- Su R2 ---
-R2&gt; enable
+            <ol start="2">
+              <li>Configura R2:</li>
+            </ol>
+            <pre>R2&gt; enable
 R2# configure terminal
 R2(config)# interface GigabitEthernet0/0
 R2(config-if)# ip address 10.0.0.2 255.255.255.252
 R2(config-if)# no shutdown
 R2(config-if)# end
 R2# write memory</pre>
-            <ol start="2">
-              <li>Click destro sul link R1-R2 &rarr; <em>Start capture</em>.
-                GNS3 apre automaticamente Wireshark.</li>
-              <li>Da console di R1: <code>ping 10.0.0.2 repeat 5</code></li>
-              <li>In Wireshark vedrai i pacchetti ICMP Echo Request e Echo Reply.</li>
-              <li>File &rarr; Save As:
-                <code>MOD-00_ICMP_Gi0-0_R1-R2_YYYY-MM-DD.pcap</code>
-                nella cartella <code>evidence/module-00/captures/</code>.</li>
+            <ol start="3">
+              <li>Click destro sul link R1-R2 &rarr; <em>Start capture</em>. Wireshark si apre automaticamente.</li>
+              <li>Da console R1: <code>ping 10.0.0.2 repeat 5</code></li>
+              <li>In Wireshark: verifica 5 Echo Request e 5 Echo Reply.</li>
+              <li>Salva la capture con naming canonico:<br>
+                <code>module-00__person-N__R1-R2__pcap__ICMP-Gi0-0__v01.pcap</code><br>
+                nella cartella <code>evidence/participants/person-N/module-00/captures/</code>.</li>
             </ol>
-            <p><strong>Verifica:</strong> il ping deve mostrare <code>!!!!!
-              Success rate is 100 percent (5/5)</code></p>
+            <p><strong>Verifica:</strong> <code>Success rate is 100 percent (5/5)</code></p>
           </section>
 
           <!-- Wireshark -->
@@ -318,36 +200,20 @@ R2# write memory</pre>
             <p><strong>Punto di cattura:</strong> link tra R1 (Gi0/0) e R2 (Gi0/0).</p>
             <p><strong>Filtro display:</strong></p>
             <pre>icmp</pre>
-            <p><strong>Pacchetti attesi:</strong> 5 ICMP Echo Request da 10.0.0.1 → 10.0.0.2
-              e 5 ICMP Echo Reply da 10.0.0.2 → 10.0.0.1.</p>
+            <p><strong>Pacchetti attesi:</strong> 5 ICMP Echo Request da 10.0.0.1 → 10.0.0.2 e 5 ICMP Echo Reply da 10.0.0.2 → 10.0.0.1.</p>
             <h3>Campi da osservare</h3>
             <ul>
-              <li><strong>Frame header:</strong> lunghezza del frame, interfaccia di cattura,
-                timestamp.</li>
-              <li><strong>Ethernet header:</strong> MAC sorgente e destinazione. Nota: su link
-                punto-punto IOS i MAC appartengono alle interfacce Cisco virtuali.</li>
-              <li><strong>IP header:</strong> Source/Destination IP, TTL (valore iniziale 255
-                per IOS), Protocol (1 = ICMP).</li>
-              <li><strong>ICMP header:</strong> Type (8 = Echo Request, 0 = Echo Reply),
-                Code (0), Identifier, Sequence Number.</li>
+              <li><strong>Frame header:</strong> lunghezza del frame, interfaccia di cattura, timestamp.</li>
+              <li><strong>Ethernet header:</strong> MAC sorgente e destinazione.</li>
+              <li><strong>IP header:</strong> Source/Destination IP, TTL (valore iniziale 255 per IOS), Protocol (1 = ICMP).</li>
+              <li><strong>ICMP header:</strong> Type (8 = Echo Request, 0 = Echo Reply), Code (0), Identifier, Sequence Number.</li>
             </ul>
             <h3>Domande di analisi</h3>
             <ol>
-              <li>Qual è il TTL nei pacchetti inviati da R1? E in quelli inviati da R2?
-                Perché il TTL di un router Cisco è 255 invece di 64 o 128?</li>
+              <li>Qual è il TTL nei pacchetti inviati da R1? E in quelli inviati da R2? Perché il TTL di un router Cisco è 255 invece di 64 o 128?</li>
               <li>I numeri di sequenza ICMP sono incrementali? Di quanto?</li>
-              <li>Il Wireshark mostra sia la request che la reply: qual è
-                l'identificatore ICMP e cambia tra i pacchetti di uno stesso ping?</li>
+              <li>L’identificatore ICMP cambia tra i pacchetti di uno stesso ping?</li>
             </ol>
-            <h3>Confronto traffico legittimo vs anomalo</h3>
-            <p>
-              Un ping legittimo mostra sequenze perfettamente accoppiate
-              (ogni Request ha la sua Reply) con TTL costante e identifier fisso.
-              Un ping anomalo (o potenzialmente un tool di scan) potrebbe mostrare
-              Request senza Reply (host non raggiungibile o filtrato), TTL
-              insolito (es. 64 o 1) o identifier che cambia ad ogni pacchetto
-              (comportamento di alcuni tool di fuzzing).
-            </p>
           </section>
 
           <!-- Test finali -->
@@ -356,57 +222,15 @@ R2# write memory</pre>
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr>
-                    <th>Nome test</th>
-                    <th>Device</th>
-                    <th>Comando</th>
-                    <th>Output atteso &#10003;</th>
-                    <th>Output errore &#10007;</th>
-                  </tr>
+                  <tr><th>Nome test</th><th>Device</th><th>Comando</th><th>Output atteso &#10003;</th><th>Output errore &#10007;</th></tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>GNS3 VM connessa</td>
-                    <td>Host GUI</td>
-                    <td>Edit &rarr; Servers Summary</td>
-                    <td>GNS3 VM: Running</td>
-                    <td>GNS3 VM: Stopped / Error</td>
-                  </tr>
-                  <tr>
-                    <td>Template IOSv presente</td>
-                    <td>Host GUI</td>
-                    <td>Palette &rarr; Routers</td>
-                    <td>Cisco-IOSv visibile</td>
-                    <td>Palette vuota o solo device built-in</td>
-                  </tr>
-                  <tr>
-                    <td>Template IOSvL2 presente</td>
-                    <td>Host GUI</td>
-                    <td>Palette &rarr; Switches</td>
-                    <td>Cisco-IOSvL2 visibile</td>
-                    <td>Template assente</td>
-                  </tr>
-                  <tr>
-                    <td>Ping R1 → R2</td>
-                    <td>R1</td>
-                    <td><code>ping 10.0.0.2 repeat 5</code></td>
-                    <td>Success rate 100% (5/5)</td>
-                    <td>Success rate 0% o timeout</td>
-                  </tr>
-                  <tr>
-                    <td>Interfaccia up/up</td>
-                    <td>R1</td>
-                    <td><code>show interfaces Gi0/0</code></td>
-                    <td>GigabitEthernet0/0 is up, line protocol is up</td>
-                    <td>administratively down o down/down</td>
-                  </tr>
-                  <tr>
-                    <td>Capture Wireshark funzionante</td>
-                    <td>Host GUI</td>
-                    <td>Click destro link &rarr; Start capture</td>
-                    <td>Wireshark si apre e mostra pacchetti</td>
-                    <td>Errore "Wireshark not found" o nessun pacchetto</td>
-                  </tr>
+                  <tr><td>GNS3 VM connessa</td><td>Host GUI</td><td>Edit &rarr; Servers Summary</td><td>GNS3 VM: Running</td><td>GNS3 VM: Stopped / Error</td></tr>
+                  <tr><td>Template IOSv presente</td><td>Host GUI</td><td>Palette &rarr; Routers</td><td>Cisco-IOSv visibile</td><td>Palette vuota</td></tr>
+                  <tr><td>Template IOSvL2 presente</td><td>Host GUI</td><td>Palette &rarr; Switches</td><td>Cisco-IOSvL2 visibile</td><td>Template assente</td></tr>
+                  <tr><td>Ping R1 &rarr; R2</td><td>R1</td><td><code>ping 10.0.0.2 repeat 5</code></td><td>Success rate 100% (5/5)</td><td>Success rate 0% o timeout</td></tr>
+                  <tr><td>Interfaccia up/up</td><td>R1</td><td><code>show interfaces Gi0/0</code></td><td>GigabitEthernet0/0 is up, line protocol is up</td><td>administratively down</td></tr>
+                  <tr><td>Capture Wireshark</td><td>Host GUI</td><td>Click destro link &rarr; Start capture</td><td>Wireshark aperto, pacchetti visibili</td><td>Errore o nessun pacchetto</td></tr>
                 </tbody>
               </table>
             </div>
@@ -415,54 +239,57 @@ R2# write memory</pre>
           <!-- Evidenze -->
           <section id="evidenze">
             <h2>Evidenze da salvare nel repository privato</h2>
-            <p>
-              Prima di dichiarare il modulo chiuso, le seguenti evidenze devono
-              essere presenti nel repository privato nelle cartelle indicate.
-            </p>
+            <p>Prima di dichiarare il modulo chiuso, le seguenti evidenze devono essere presenti nel repository privato nelle cartelle indicate.</p>
             <div class="table-wrap">
               <table>
                 <thead>
-                  <tr>
-                    <th>Tipo</th>
-                    <th>Naming obbligatorio</th>
-                    <th>Cartella repo privato</th>
-                  </tr>
+                  <tr><th>Tipo</th><th>Naming canonico</th><th>Cartella repo privato</th></tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>Export progetto GNS3</td>
-                    <td><code>MOD-00_topology-bootstrap_YYYY-MM-DD.gns3project</code></td>
+                    <td><code>module-00__shared__gns3__export-gns3__topology-bootstrap__v01.gns3project</code></td>
                     <td><code>gns3/exports/module-00/</code></td>
                   </tr>
                   <tr>
                     <td>Screenshot topologia GNS3</td>
-                    <td><code>MOD-00_topology-canvas_YYYY-MM-DD.png</code></td>
-                    <td><code>evidence/module-00/screenshots/</code></td>
+                    <td><code>module-00__person-N__gns3__screenshot__topology-canvas__v01.png</code></td>
+                    <td><code>evidence/participants/person-N/module-00/screenshots/</code></td>
                   </tr>
                   <tr>
                     <td>Screenshot GNS3 VM connessa</td>
-                    <td><code>MOD-00_gns3vm-connected_YYYY-MM-DD.png</code></td>
-                    <td><code>evidence/module-00/screenshots/</code></td>
+                    <td><code>module-00__person-N__gns3__screenshot__gns3vm-connected__v01.png</code></td>
+                    <td><code>evidence/participants/person-N/module-00/screenshots/</code></td>
+                  </tr>
+                  <tr>
+                    <td>Screenshot GNS3 installata</td>
+                    <td><code>module-00__person-N__host__screenshot__gns3-installed__v01.png</code></td>
+                    <td><code>evidence/participants/person-N/module-00/screenshots/</code></td>
                   </tr>
                   <tr>
                     <td>Capture ICMP R1-R2</td>
-                    <td><code>MOD-00_ICMP_Gi0-0_R1-R2_YYYY-MM-DD.pcap</code></td>
-                    <td><code>evidence/module-00/captures/</code></td>
+                    <td><code>module-00__person-N__R1-R2__pcap__ICMP-Gi0-0__v01.pcap</code></td>
+                    <td><code>evidence/participants/person-N/module-00/captures/</code></td>
                   </tr>
                   <tr>
-                    <td>Running config R1</td>
-                    <td><code>MOD-00_R1_running-config_YYYY-MM-DD.txt</code></td>
+                    <td>Running config R1 (condivisa)</td>
+                    <td><code>module-00__shared__R1__running-config__post-setup__v01.txt</code></td>
                     <td><code>gns3/configs/module-00/</code></td>
                   </tr>
                   <tr>
-                    <td>Running config R2</td>
-                    <td><code>MOD-00_R2_running-config_YYYY-MM-DD.txt</code></td>
+                    <td>Running config R2 (condivisa)</td>
+                    <td><code>module-00__shared__R2__running-config__post-setup__v01.txt</code></td>
                     <td><code>gns3/configs/module-00/</code></td>
                   </tr>
                   <tr>
-                    <td>Output ping test</td>
-                    <td><code>MOD-00_R1_ping-R2_YYYY-MM-DD.txt</code></td>
-                    <td><code>evidence/module-00/show-commands/</code></td>
+                    <td>Output ping R1 &rarr; R2</td>
+                    <td><code>module-00__person-N__R1__cli-output__ping-R2__v01.txt</code></td>
+                    <td><code>evidence/participants/person-N/module-00/show-commands/</code></td>
+                  </tr>
+                  <tr>
+                    <td>Output ping R2 &rarr; R1</td>
+                    <td><code>module-00__person-N__R2__cli-output__ping-R1__v01.txt</code></td>
+                    <td><code>evidence/participants/person-N/module-00/show-commands/</code></td>
                   </tr>
                 </tbody>
               </table>
@@ -472,35 +299,29 @@ R2# write memory</pre>
           <!-- Chiusura -->
           <section id="chiusura">
             <h2>Criterio di chiusura del modulo</h2>
-            <p>Il Modulo 00 può essere dichiarato <strong>chiuso</strong> solo quando
-              tutte le seguenti condizioni sono soddisfatte contemporaneamente:</p>
+            <p>Il Modulo 00 può essere dichiarato <strong>chiuso</strong> solo quando tutte le seguenti condizioni sono soddisfatte contemporaneamente:</p>
             <ul>
               <li>GNS3 GUI avviata senza errori e connessa a GNS3 VM (indicatore verde).</li>
               <li>Template Cisco-IOSv e Cisco-IOSvL2 visibili nella palette di GNS3.</li>
               <li>Progetto <code>network-learning-path</code> salvato con R1 e R2 configurati.</li>
-              <li>Ping R1 → R2 con success rate 100% documentato nell'output CLI.</li>
+              <li>Ping R1 → R2 con success rate 100% documentato nell’output CLI.</li>
               <li>Capture Wireshark funzionante con almeno 10 pacchetti ICMP visibili.</li>
-              <li>Tutte le evidenze presenti nel repo privato con naming corretto.</li>
-              <li>Checklist <code>docs/verification/module-00-checklist.md</code>
-                completata e committata.</li>
+              <li>Tutte le evidenze presenti nel repo privato con naming canonico corretto.</li>
+              <li>Checklist <code>docs/verification/module-00-checklist.md</code> completata e committata.</li>
             </ul>
           </section>
 
           <!-- Topologia finale -->
           <section id="topologia-finale">
             <h2>Topologia al termine del Modulo 00</h2>
-            <p>
-              Questa è la topologia che costituisce il punto di partenza del Modulo 01.
-              Due router collegati punto-punto con indirizzi IP minimi configurati.
-              Il progetto GNS3 esiste, è salvato e versionato nel repo privato.
-            </p>
+            <p>Questa è la topologia che costituisce il punto di partenza del Modulo 01. Due router collegati punto-punto con indirizzi IP minimi configurati. Il progetto GNS3 esiste, è salvato e versionato nel repo privato.</p>
             <div class="card ascii-card">
 <pre>
 ┌─────────────────────────────────────────────────────┐
 │  Progetto GNS3: network-learning-path               │
 │                                                     │
-│   R1 ─────────────────────────────── R2             │
-│   Gi0/0: 10.0.0.1/30   Gi0/0: 10.0.0.2/30          │
+│   R1 ─────────────────────────────────────── R2    │
+│   Gi0/0: 10.0.0.1/30   Gi0/0: 10.0.0.2/30         │
 │                                                     │
 │   Stato: entrambi up, ping OK, capture salvata      │
 └─────────────────────────────────────────────────────┘
@@ -531,9 +352,7 @@ R2# write memory</pre>
           <div class="card" style="margin-top: 1rem; padding: 1rem;">
             <p class="panel-label">Stato modulo</p>
             <span class="status ready">Pubblicato</span>
-            <p style="margin-top: 0.8rem; font-size: var(--text-sm);">
-              Prerequisito per il Modulo 01
-            </p>
+            <p style="margin-top: 0.8rem; font-size: var(--text-sm);">Prerequisito per il Modulo 01</p>
           </div>
         </aside>
 
