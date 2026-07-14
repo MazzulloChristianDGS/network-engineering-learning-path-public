@@ -66,7 +66,7 @@
             <h2>Prima di iniziare</h2>
             <p>
               Ogni partecipante lavora solo nella propria area dedicata
-              <code>evidence/participants/person-N/</code> e carica esclusivamente
+              <code>evidence/participants/participant-N/</code> e carica esclusivamente
               materiale relativo al modulo in corso. Le cartelle consolidate e di
               governance restano di competenza del maintainer.
             </p>
@@ -91,10 +91,10 @@
             <h2>Struttura di destinazione</h2>
             <p>
               Le evidenze individuali vanno in
-              <code>evidence/participants/person-N/module-XX/</code>.
-              Le sottocartelle <code>screenshots/</code>, <code>captures/</code>
-              e <code>show-commands/</code> sono già predisposte per ogni
-              partecipante e ogni modulo.
+              <code>evidence/participants/participant-N/module-XX/</code>.
+              Le sottocartelle <code>screenshots/</code>, <code>cli-and-configs/</code>,
+              <code>pcaps/</code> e <code>tests-and-notes/</code> sono predisposte per
+              ogni partecipante al momento della pubblicazione di ciascun modulo.
             </p>
             <div class="table-wrap">
               <table>
@@ -104,18 +104,28 @@
                 <tbody>
                   <tr>
                     <td>Screenshot</td>
-                    <td><code>evidence/participants/person-N/module-XX/screenshots/</code></td>
+                    <td><code>evidence/participants/participant-N/module-XX/screenshots/</code></td>
                     <td>Solo file nominati con convenzione congelata</td>
                   </tr>
                   <tr>
-                    <td>Capture Wireshark (.pcap)</td>
-                    <td><code>evidence/participants/person-N/module-XX/captures/</code></td>
-                    <td>Una capture per link rilevante</td>
+                    <td>CLI output, show commands, config</td>
+                    <td><code>evidence/participants/participant-N/module-XX/cli-and-configs/</code></td>
+                    <td>Preferire .txt leggibili da terminale</td>
                   </tr>
                   <tr>
-                    <td>CLI output e show commands</td>
-                    <td><code>evidence/participants/person-N/module-XX/show-commands/</code></td>
-                    <td>Preferire .txt leggibili da terminale</td>
+                    <td>Capture Wireshark (.pcap)</td>
+                    <td><code>evidence/participants/participant-N/module-XX/pcaps/</code></td>
+                    <td>Una capture per link rilevante. File oltre 25MB: usa .zip</td>
+                  </tr>
+                  <tr>
+                    <td>Note, osservazioni, esiti test</td>
+                    <td><code>evidence/participants/participant-N/module-XX/tests-and-notes/</code></td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td><code>status.yml</code> (<code>lab_status</code>, <code>docs_status</code>)</td>
+                    <td><code>evidence/participants/participant-N/module-XX/status.yml</code></td>
+                    <td>Nella root del modulo, non dentro <code>tests-and-notes/</code></td>
                   </tr>
                   <tr>
                     <td>Running-config (condivise)</td>
@@ -136,48 +146,20 @@
           <section id="naming">
             <h2>Naming obbligatorio dei file</h2>
             <p>
-              Ogni file deve rispettare la convenzione congelata.
-              Il pattern è unico per tutto il percorso e non ha eccezioni.
+              Il naming di device, VLAN, evidenze, cartelle e branch è congelato
+              per tutto il percorso ed è mantenuto in un’unica fonte, per evitare
+              copie che possano disallinearsi nel tempo.
             </p>
-            <pre>module-XX__person-N__scope__artifact-type__short-description__vNN.ext</pre>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>Campo</th><th>Valori ammessi</th><th>Esempio</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td><code>module-XX</code></td><td><code>module-00</code> → <code>module-09</code></td><td><code>module-00</code></td></tr>
-                  <tr><td><code>person-N</code></td><td><code>person-1</code>, <code>person-2</code>, <code>person-3</code> oppure <code>shared</code></td><td><code>person-1</code></td></tr>
-                  <tr><td><code>scope</code></td><td>device, servizio o ambito (es. <code>R1</code>, <code>gns3</code>, <code>host</code>)</td><td><code>R1</code></td></tr>
-                  <tr><td><code>artifact-type</code></td><td><code>screenshot</code>, <code>cli-output</code>, <code>pcap</code>, <code>running-config</code>, <code>export-gns3</code></td><td><code>screenshot</code></td></tr>
-                  <tr><td><code>short-description</code></td><td>descrizione sintetica in kebab-case</td><td><code>gns3-installed</code></td></tr>
-                  <tr><td><code>vNN</code></td><td>versione a due cifre, parte da <code>v01</code></td><td><code>v01</code></td></tr>
-                  <tr><td><code>.ext</code></td><td><code>.png</code>, <code>.pcap</code>, <code>.txt</code>, <code>.md</code>, <code>.gns3project</code></td><td><code>.png</code></td></tr>
-                </tbody>
-              </table>
-            </div>
-            <h3>Esempi corretti per il Modulo 00</h3>
-            <p>Evidenze individuali (ogni partecipante nella propria cartella):</p>
-            <ul role="list" class="bullet-list">
-              <li><code>module-00__person-1__host__screenshot__gns3-installed__v01.png</code></li>
-              <li><code>module-00__person-2__gns3__screenshot__gns3vm-connected__v01.png</code></li>
-              <li><code>module-00__person-1__R1-R2__pcap__ICMP-Gi0-0__v01.pcap</code></li>
-              <li><code>module-00__person-1__R1__cli-output__ping-R2__v01.txt</code></li>
-              <li><code>module-00__person-2__R2__cli-output__ping-R1__v01.txt</code></li>
-            </ul>
-            <p>Evidenze condivise (un solo set per il laboratorio):</p>
-            <ul role="list" class="bullet-list">
-              <li><code>module-00__shared__R1__running-config__post-setup__v01.txt</code></li>
-              <li><code>module-00__shared__R2__running-config__post-setup__v01.txt</code></li>
-              <li><code>module-00__shared__gns3__export-gns3__topology-bootstrap__v01.gns3project</code></li>
-            </ul>
             <div class="callout card">
-              <strong>&#9432; Regole separatori</strong>
-              <p>Tra campi usa <code>__</code> (doppio underscore).
-                All’interno di un campo usa <code>-</code> (trattino singolo).
-                Interfacce: <code>Gi0/0</code> diventa <code>Gi0-0</code>.
-                Device in maiuscolo: <code>R1</code>, <code>SW-ACC-1</code>.
-                Versione parte da <code>v01</code> e aumenta solo a correzione.</p>
+              <strong>&#9432; Fonte unica del naming</strong>
+              <p>
+                Consulta <code>knowledge-base/meta/naming-conventions.md</code> nel
+                repository privato per il pattern completo
+                (<code>module-XX__participant-N__scope__artifact-type__short-description__vNN.ext</code>),
+                il naming dei device, le VLAN congelate e il naming dei branch.
+                Il link è consultabile solo dai collaboratori autenticati sul
+                repository privato.
+              </p>
             </div>
           </section>
 
