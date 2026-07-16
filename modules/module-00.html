@@ -180,6 +180,22 @@
 
             <h3>Step 1 — Installazione GNS3 GUI e GNS3 VM</h3>
             <p><strong>Obiettivo:</strong> avere GNS3 GUI avviato e connesso a GNS3 VM senza errori.</p>
+            <div class="callout card">
+              <strong>&#9432; Cos’è la nested virtualization e perché è obbligatoria</strong>
+              <p>
+                GNS3 VM è una macchina virtuale che al proprio interno deve eseguire un
+                secondo livello di virtualizzazione (KVM/QEMU) per far girare i device
+                Cisco IOSv/IOSvL2: è "virtualizzazione dentro la virtualizzazione".
+                Senza nested virtualization abilitata sull’hypervisor host, GNS3 VM si
+                avvia normalmente ma i device IOSv non partono o restano bloccati in
+                avvio, senza un errore esplicito che lo segnali. Percorso per abilitarla
+                prima di importare l’OVA:
+              </p>
+              <ul>
+                <li><strong>VMware Workstation/Fusion:</strong> VM &rarr; Settings &rarr; Processors &rarr; spunta <em>Virtualize Intel VT-x/EPT or AMD-V/RVI</em>.</li>
+                <li><strong>VirtualBox:</strong> Settings &rarr; System &rarr; Acceleration &rarr; spunta <em>Enable Nested VT-x/AMD-V</em> (richiede VirtualBox 6.1+ e CPU host con supporto nested).</li>
+              </ul>
+            </div>
             <ol>
               <li>
                 Scarica il pacchetto
@@ -194,7 +210,7 @@
                 <a href="https://www.vmware.com/products/fusion.html" target="_blank" rel="noopener">VMware Fusion</a>
                 o
                 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">VirtualBox</a>.
-                Assegna almeno 4 vCPU e 8 GB di RAM. Abilita nested virtualization (VT-x/AMD-V).
+                Assegna almeno 4 vCPU e 8 GB di RAM. Abilita nested virtualization (VT-x/AMD-V) come indicato sopra, prima di avviare la VM.
               </li>
               <li>Avvia GNS3 VM. Annota l’indirizzo IP mostrato a schermo.</li>
               <li>Avvia GNS3 GUI. Setup Wizard: scegli <em>Run appliances on a remote server (GNS3 VM)</em>. Inserisci l’IP di GNS3 VM e porta <code>3080</code>.</li>
@@ -222,7 +238,8 @@
             <ol>
               <li>In GNS3 GUI: Edit &rarr; Preferences &rarr; QEMU &rarr; Qemu VMs &rarr; New.</li>
               <li>Nome template: <code>Cisco-IOSv</code>. RAM: 512 MB. vCPU: 1. Disco HDA: seleziona il file <code>.qcow2</code> di IOSv.</li>
-              <li>Ripeti per IOSvL2 con nome template <code>Cisco-IOSvL2</code>. RAM: 768 MB.</li>
+              <li>Nell’ultima schermata della procedura guidata (o successivamente in Edit sul template appena creato), imposta <strong>Category: Routers</strong> e scegli un’icona router. Questo determina sotto quale categoria della palette il template comparirà: senza impostarla esplicitamente potrebbe finire nella categoria generica invece che in <em>Routers</em>.</li>
+              <li>Ripeti per IOSvL2 con nome template <code>Cisco-IOSvL2</code>, RAM: 768 MB, impostando questa volta <strong>Category: Switches</strong> e un’icona switch, così da farlo comparire sotto <em>Switches</em> nella palette.</li>
             </ol>
             <p><strong>Verifica:</strong> trascina un’istanza IOSv sulla canvas, avviala e attendi il boot (~60 secondi). Console: deve comparire il prompt <code>Router&gt;</code>.</p>
 
@@ -232,7 +249,7 @@
               <li>File &rarr; New blank project. Nome: <code>network-learning-path</code>.</li>
               <li>Aggiungi un’istanza IOSv. Click destro &rarr; Change hostname: <code>R1</code>.</li>
               <li>Aggiungi una seconda istanza IOSv. Rinominala <code>R2</code>.</li>
-              <li>Collega R1 Gi0/0 a R2 Gi0/0 con un link punto-punto.</li>
+              <li>Collega R1 Gi0/0 a R2 Gi0/0 con un link punto-punto: seleziona lo strumento <em>Add a link</em> (icona a forma di cavo nella toolbar verticale a sinistra della canvas), clicca su R1 e scegli l’adapter <code>Gi0/0</code> dal menu che compare, poi clicca su R2 e scegli l’adapter <code>Gi0/0</code>. Il link appare come linea che collega i due device sulla canvas.</li>
               <li>File &rarr; Save project.</li>
               <li>File &rarr; Export portable project &rarr; salva con naming canonico:<br>
                 <code>module-00__shared__gns3__export-gns3__topology-bootstrap__v01.gns3project</code><br>
